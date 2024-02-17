@@ -1,0 +1,9 @@
+// NO MIDDLE CONDITION IN FOR
+void main(){
+  
+  for (;;) {
+    int x = 1;
+    1 < 2;
+  }
+
+}

@@ -1,0 +1,9 @@
+// BAD CONSTRUCTOR PARAMETER
+class test_class {
+  pass(int , int y) {
+    1+2;
+  }
+}
+void main() {
+
+}

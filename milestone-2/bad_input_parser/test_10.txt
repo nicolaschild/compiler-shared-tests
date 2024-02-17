@@ -1,0 +1,4 @@
+// NO RPAREN WITH ARGUMENT
+void main() {
+  hello(;
+}

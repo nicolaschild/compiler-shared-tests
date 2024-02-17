@@ -1,0 +1,16 @@
+// NO COLON FOR CASE
+void main(){
+  
+  switch (1<2) {
+    case 1
+      4 += 5;
+      {
+        5 - 4;
+      }
+      break;
+    default:
+      break;
+  }
+
+
+}

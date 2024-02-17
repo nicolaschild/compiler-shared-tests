@@ -1,0 +1,7 @@
+// BAD RCURLY IN SWITCH
+void main() {
+  switch (1<2) {
+    default:
+      break;
+  
+}

@@ -1,0 +1,6 @@
+// NOT VALID EXPRESSION FOR NEW INDEX
+void main(){
+  
+  new hello[][][[1+2]];
+
+}

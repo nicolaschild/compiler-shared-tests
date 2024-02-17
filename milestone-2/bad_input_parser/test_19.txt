@@ -1,0 +1,6 @@
+// INVALID IDENTIFIER
+void main(){
+
+  p.123;
+ 
+}

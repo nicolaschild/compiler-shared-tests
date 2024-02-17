@@ -1,0 +1,7 @@
+// BAD EXPRESSION IN IF
+void main(){
+
+  if (1 < 2) {
+    true
+  }
+}

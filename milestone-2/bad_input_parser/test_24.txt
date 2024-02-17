@@ -1,0 +1,5 @@
+// BAD VARIABLE DECLARATION
+void main(){
+
+  He llo hello = 5;
+}

@@ -1,0 +1,9 @@
+// NO LCURLY FOR ELSE
+void main(){
+  if (1 < 2) {
+    true;
+  }
+  else 
+    false;
+  }
+}

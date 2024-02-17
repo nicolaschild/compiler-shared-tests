@@ -1,0 +1,6 @@
+// NO SEMICOLON FOR RETURN
+void main(){
+  
+  return 1 > 2
+  
+}

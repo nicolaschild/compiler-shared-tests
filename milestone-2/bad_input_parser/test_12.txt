@@ -1,0 +1,8 @@
+// BAD CONDITION FOR WHILE
+void main(){
+  
+  while (1  2) {
+    bool value = true;
+  }
+  
+}

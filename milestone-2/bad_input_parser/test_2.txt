@@ -1,0 +1,8 @@
+// NO GLOBAL VARIABLE 
+class no_globals {}
+
+bool why_not;
+
+void main() {
+  bool because = true;
+}

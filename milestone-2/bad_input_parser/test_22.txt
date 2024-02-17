@@ -1,0 +1,6 @@
+// CANNOT HAVE EMPTY INDEX/EXPRESSION
+void main(){
+ 
+  bye[1+5][];
+
+}

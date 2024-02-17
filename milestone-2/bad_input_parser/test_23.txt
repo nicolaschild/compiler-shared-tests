@@ -1,0 +1,7 @@
+// BAD VARIABLE DECLARATION
+void main(){
+  
+
+  char[]  = b[10];
+
+}

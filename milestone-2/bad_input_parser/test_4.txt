@@ -1,0 +1,15 @@
+// NOTHING BELOW MAIN
+void main() {
+
+}
+
+class test_class {
+  static private int[][] pass(dude[] x, int y) {
+    1+2;
+    !dude;
+  }
+  public hehe[][][] member = 1+2;
+  pass(int x, int y) {
+    1+2;
+  }
+}

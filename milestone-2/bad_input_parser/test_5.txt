@@ -1,0 +1,12 @@
+// BAD LPAREN FOR METHOD SUFFIX
+class test_class {
+  static private int[][] pass dude[] x, int y) {
+    1+2;
+    !dude;
+  }
+  
+}
+
+void main() {
+
+}

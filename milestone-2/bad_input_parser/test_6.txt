@@ -1,0 +1,9 @@
+// BAD VARIABLE DECLARATION
+class test_class {
+
+  public hehe[][][] member =;
+}
+
+void main() {
+
+}

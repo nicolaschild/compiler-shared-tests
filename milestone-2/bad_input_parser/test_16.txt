@@ -1,0 +1,6 @@
+// BAD CHAR FOR CIN
+void main(){
+  
+  cin >> b';
+  
+}

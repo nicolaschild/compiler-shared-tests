@@ -1,0 +1,6 @@
+// BAD STRING VALUE FOR COUT
+void main(){
+  
+  cout << "hello;
+  
+}
