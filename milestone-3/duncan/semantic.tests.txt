@@ -1,0 +1,463 @@
+ "If Statement Tests" {
+    "should throw an error for duplicate variable declarations"
+      const input = `void main() {
+      int x = 5;
+      int x = 2;
+    }`;
+      
+    "should throw an error for an invalid if statement"
+      const input = `void main() {
+      if (x = 3) {
+        int x = 5;
+      }
+    }`;
+      
+    "should throw an error for an invalid if statement where identifier is not a bool"
+      const input = `void main() {
+      int x = 3;
+      if (x) {
+        int b = 5;
+      }
+    }`;
+      
+    "should not throw error for a valid if statemnet where ID is a bool"
+      const input = `void main() {
+      bool x = true;
+      if (x) {
+        int b = 5;
+      }
+    }`;
+      
+    "should not throw error for a valid if statement with conditional && or ||"
+      const input = `void main() {
+      bool x = true;
+      if (x && x || x && x) {
+        int c = 5;
+      }
+      if (x || x) {
+        int b = 5;
+      }
+    }`;
+      
+    "should throw error for invalid if statement with assignment"
+      const input = `void main() {
+      bool x = true;
+      if (x - x && x) {
+        int b = 5;
+      }
+    }`;
+      
+    "should not throw any errors for multiple conditional statements"
+      const input = `void main() {
+      bool x = true;
+      if (x && x || x && x) {
+        int c = 5;
+      }
+      if (x || x) {
+        int b = 5;
+      }
+    }`;
+      
+    "should throw an error for if statement with wrong datatype comparison"
+      const input = `void main() {
+  int x = 5;
+  char y = 'y';
+  if (x < 5 && y == 5) {
+    cout << "x is less than 5 and y";
+  }
+}`;
+      
+    "should not throw an error for if statement with different data types"
+      const input = `void main() {
+  int x = 5;
+  char y = 'y';
+  if (x < 5 && y == 'a') {
+    cout << "x is less than 5 and y";
+  }
+}`;
+  "Break statement tests"
+    "should throw an error for a break statement outside of a loop"
+      const input = `void main() {
+      break;
+    }`;
+      
+    "should not throw an error for break statements inside these loops"
+      const input = `void main() {
+      int i;
+      while(true) {
+        break;
+      }
+      for (i = 0; i < 5; i += 1) {
+        break;
+      }
+    }`;
+      
+    "should not throw errors when a break statement has embedded if"
+      const input = `void main() {
+        int i;
+        while(true) {
+          if (true) {
+            break;
+            }
+            }
+            for (i = 0; i < 5; i += 1) {
+              if (true) { if (true) {
+                break;
+              }
+                }
+                }
+                }`;
+      
+    "should throw an error inside an if statement not inside a loop"
+      const input = `void main() {
+      if (true) {
+        break;
+      }
+    }`;
+      
+    "should throw an error for a break statement outside of a switch statement"
+      const input = `void main() {
+        switch (x) {
+          case 1:
+            break;
+          default:
+            break;
+        }
+        break;
+      }`;
+      
+    "should not throw an error for a break statement inside a switch statement"
+      const input = `void main() {
+        switch (x) {
+          case 1:
+            break;
+          default:
+            break;
+        }
+      }`;
+    }
+      
+  "Invalid Write Statement Tests" {
+      "should throw an error for invalid cin statement"
+        const input = `void main() {
+      cin >> x;
+    }`;
+        
+      "should not throw an error for the valid cin statements with valid types"
+        const input = `void main() {
+      int x;
+      cin >> x;
+      char a;
+      cin >> a;
+    }`;
+        
+      "should throw an error for an invalid write statement"
+        const input = `void main() {
+      int x = 5;
+      x = true;
+    }`;
+        
+      "should throw an error for an invalid write statement"
+        const input = `void main() {
+      bool x = true;
+      x = 5 + 5;
+    }`;
+       
+      "should not throw an error for a valid write statement"
+        const input = `void main() {
+      int x = 5;
+      x = 5;
+      x = 5 + 5;
+    }`;
+        
+      "should not throw an error for a valid write statement"
+        const input = `void main() {
+      int x = 5;
+      x = 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5;
+    }`;
+        
+      "should throw an error for an invalid write statement"
+        const input = `void main() {
+        int x = 5;
+        x += true;
+      }`;
+        
+      "should not throw on some valid variable declarations"
+        const input = `void main() {
+        int x = 5;
+        bool y = true;
+        string z = "hello";
+        char a = 'a';
+      }`;
+        
+      "should throw an error when an expression has an undeclared variable"
+        const input = `void main() {
+        int x = 5;
+        int y = x + z;
+      }`;
+        
+      "should not throw an error for an expression with a variable declared in the symbol table"
+        const input = `void main() {
+        int x = 5;
+        int y = x + x;
+        int z = y + x;
+      }`;
+       
+    "Cout Statement Tests"
+      "should throw an error for an invalid cout statement"
+        const input = `void main() {
+        int x = 5;
+        cout << x + true; 
+      }`;
+        
+      "should throw an error for cout statement with undeclared variable"
+        const input = `void main() {
+        int x = 5;
+        cout << x + z; 
+      }`;
+        
+      "should not throw an error for cout statement with 2 valid identifiers"
+        const input = `void main() {
+        int x = 5;
+        int y = 5;
+        cout << x + y; 
+      }`;
+        
+      "should not throw an error for a valid cout statement"
+        const input = `void main() {
+        int x = 5;
+        cout << x + 5 + 5;
+      }`;
+       
+      "should throw an error for these invalid cout statements"
+        const input = `void main() {
+        int x = 5;
+        cout << x + true;
+        cout << x + "hello";
+        cout << x + 'a';
+        cout << x + 5 + 5 + true;
+        cout << x + 5 + "hello";
+        cout << true;
+      }`;
+       
+      "should not throw for these valid cout statements based on type"
+        const input = `void main() {
+        int x = 5;
+        char y = 'a';
+        string z = "hello";
+        bool a = true;
+        cout << x;
+        cout << y;
+        cout << z;
+        cout << a;
+      }`;
+    }
+  "Cin Statement Tests" {
+      "should throw an error for cin >> string and cin >> bool"
+        const input = `void main() {
+        string x;
+        cin >> x;
+        bool y;
+        cin >> y;
+      }`;
+        
+      "should not throw an error for cin >> int and cin >> char"
+        const input = `void main() {
+        int x;
+        cin >> x;
+        char y;
+        cin >> y;
+      }`;
+       
+      "should throw error for various invalid cin statements"
+        // the type checker will catch these errors
+        const input = `void main() {
+        int x;
+        cin >> x + 5;
+        cin >> x + 235134;
+        cin >> x + 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5;
+      }`;
+        
+      "should throw an error for these invalid cin statements"
+        // The invalid writes visitor will catch these errors
+        const input = `void main() {
+        int x;
+         cin >> x + true;
+        cin >> x + "hello";
+        cin >> x + 'a';
+        cin >> x + 5 + 5 + true;
+        cin >> x + 5 + "hello";
+      }`;
+        
+    "should not throw an error for relational comparison of two chars"
+      const input = `void main() {
+      char x = 'a';
+      char y = 'b';
+      if (x < y) {
+        cout << "x is less than y";
+      }
+    }`;
+     
+    "should throw an errr for relational comparison of two different types"
+      const input = `void main() {
+      char x = 'a';
+      int y = 5;
+      if (x < y) {
+        cout << "x is less than y";
+      }
+    }`;
+      
+    "should throw an error for invalid use of unary operator"
+      const input = `void main() {
+      bool x = true;
+      x = -x;
+      int y = 5;
+      y = !y;
+    }`;
+      
+    "should not throw an error for valid use of unary operator"
+      const input = `void main() {
+      int x = 5;
+      x = -x;
+      bool y = true;
+      y = !y;
+      char z = 'a';
+      z = +z;
+    }`;
+      
+    "should throw error when trying to assign null to literal"
+      const input = `void main() {
+      int x = null;
+    }`;
+      
+    "should not throw an error for a unary NOT operator on an equality expression"
+      const input = `void main() {
+      int x = 5;
+      bool y = true;
+      if (!(x == 5)) {
+        cout << "x is not equal to 5";
+      }
+      if (!(y == true)) {
+        cout << "y is not equal to true";
+      }
+    }`;
+      
+    "should throw an error for a unary NOT operator on a non boolean"
+      const input = `void main() { 
+      int x = 5;
+      if (!(x + 3)) {
+        cout << "x is not equal to 5";
+      }
+    }`;
+  }
+   
+  "Type Checking Tests" {
+    "should throw an error when trying to add a char to an int"
+      const input = `void main() {
+        int x = 5;
+        char y = 'a';
+        int z = x + y;
+      }`;
+      
+    "should throw an error when trying to add a bool to an int"
+      const input = `void main() {
+        int x = 5;
+        bool y = true;
+        int z = x + y;
+      }`;
+      
+
+    "should not throw an error when adding two ints"
+      const input = `void main() {
+        int x = 5;
+        int y = 5;
+        int z = x + y;
+      }`;
+      
+
+    "should not through an error for an expression with multiple ints"
+      const input = `void main() {
+        int x = 5;
+        int y = 5;
+        int a = 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5;
+        int b = x + y + x + y + a + a + x + y;
+        int z = x + y + 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5 + 5;
+      }`;
+      
+
+    "should not throw an error for comparison of two ints"
+      const input = `void main() {
+        int x = 5;
+        int y = 5;
+        if (x < y) {
+          cout << "x is less than y";
+        }
+      }`;
+      
+
+    "should not throw an error for comparison of two chars"
+      const input = `void main() {
+        char x = 'a';
+        char y = 'b';
+        if (x < y) {
+          cout << "x is less than y";
+        }
+      }`;
+     
+
+    "should throw errors for comparisons of different types"
+      const input = `void main() {
+        int x = 5;
+        char y = 'a';
+        string z = "hello";
+        bool a = true;
+        if (x < y) {
+          cout << "x is less than y";
+        }
+        if (x < z) {
+          cout << "x is less than z";
+        }
+        if (x < a) {
+          cout << "x is less than a";
+        }
+        while (x < y) {
+          cout << "x is less than y";
+        }
+      }`;
+     
+
+    "should not throw an error for a unary PLUS operator on a char"
+      const input = `void main() {
+        char x = 'a';
+        int y = +x;
+      }`;
+     
+
+    "should throw an error for a unary NOT operator that's not on a boolean"
+      const input = `void main() {
+        int x = 5;
+        bool y = !x;
+        char z = 'a';
+        bool a = !z;
+        string b = "hello";
+        bool c = !b;
+      }`;
+   
+
+    "should not throw an error for a unary NOT operator on a boolean"
+      const input = `void main() {
+        bool f = false;
+        bool t = !f;
+      }`;
+   
+
+    "should throw an error for unary MINUS operator on types other than int"
+      const input = `void main() {
+        char x = 'a';
+        int y = -x;
+        string z = "hello";
+        int a = -z;
+        bool b = true;
+        int c = -b;
+      }`;
+    }
