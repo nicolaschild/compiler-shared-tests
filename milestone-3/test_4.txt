@@ -1,0 +1,20 @@
+//test that breaks are used in the correct place, errors occur on lines [4,8,9,10,19]
+class A {
+  A() {
+    break;
+  }
+}
+void main() {
+  break;
+  if (true) {break;}
+  if (false) break;
+  while (true) {break;}
+  for (;false;) {break;}
+  switch('c'){
+    case 'a':
+      break;
+    default:
+      break;
+  }
+  break;
+}

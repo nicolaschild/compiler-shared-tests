@@ -1,0 +1,65 @@
+// tests for building symbol table and catching double declared vars, errors on lines [3,6,8,9,13,14,15,21,23,25,26,31,32,33,34,38,42,47,52,58,61,62]
+class one {}
+class one {}
+class two {
+  public int hehe;
+  private int hehe;
+  public int two = 0;
+  public int two(){}
+  two(){}
+}
+class three {
+  public int lol(){}
+  private int lol(int dude){
+    int three = 0;
+    char dude = 1;
+  }
+  three(){}
+}
+class four {
+  public char haha;
+  private int haha(){}
+  four(){
+    int four = 0;
+    int x = 0;
+    char x = 'x';
+    bool one = false;
+  }
+}
+
+void main() {
+  string one;
+  string two;
+  string three;
+  string four;
+
+  if (false) {
+    int x = 0;
+    char x = 'x';
+  }
+  else {
+    int x = 0;
+    char x = 'x';
+  }
+
+  for (;false;) {
+    int x = 0;
+    char x = 'x';
+  }
+
+  while (true) {
+    int x = 0;
+    char x = 'x';
+  }
+
+  switch ('c') {
+    case 'e':
+      int x = 0;
+      char x = 'x';
+      break;
+    default:
+      int x = 0;
+      char x = 'x';
+      break;
+  }
+}

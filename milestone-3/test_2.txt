@@ -1,0 +1,103 @@
+//checks all expressions and statements as well as accessing data from classes, errors on lines [11, 12, 12, 13, 13, 21, 23, 27, 33, 34, 37, 39, 40, 41, 42, 45, 46, 46, 48, 51, 53, 56, 57, 58, 58, 61, 62, 63, 64, 65, 66, 67, 68, 71, 72, 73, 74, 77, 77, 78, 78, 81, 81, 82, 82, 85, 86, 88, 89, 90, 91, 96]
+class A {
+  static public int boo = 0;
+  static private int hoo = 0;
+  public int hello = 0;
+  private int bye = 0;
+  static public int nums(int x) {
+    boo = 3;
+    hoo = 4;
+    A.hoo = 7;
+    hello = 5;
+    A.hello = 10;
+    this.bye = 6;
+  }
+  static private char chars(char a) {}
+  public int digits(int y) {
+    boo = 3;
+    hoo = 4;
+    A.hoo = 7;
+    hello = 5;
+    A.hello = 10;
+    this.bye = 6;
+    return 'c';
+  }
+  private char characters(char b) {}
+  A(string input){
+    return "hello";
+  }
+}
+
+void main() {
+  int get_boo = A.boo;
+  int get_hoo = A.hoo;
+  int get_hello = A.hello;
+  A my_a = new A("heh");
+  int try_hello = my_a.hello;
+  int try_bye = my_a.bye;
+
+  A we_good = new A();
+  int[][] bad_2d = new int[5];
+  char[] bad_values = new int[5];
+  int[] almost = new int[false];
+  int[][] valid_2d = new int[][5];
+
+  int from_func = my_a.digits();
+  char is_char = my_a.digits('c');
+
+  int get_inner = valid_2d[1];
+  int my_number = 0;
+  int hmmmm_maybe = my_number[0];
+  int try_again_inner = valid_2d[1][0];
+
+  void but_why;
+
+  int convert_good = +'c';
+  int conver_bad = +"nah";
+  int negative = -false;
+  char flip = !'c';
+
+  int result = 0;
+  result = 1 + 'c';
+  result = false - 2;
+  result = "hehe" * 4;
+  result = null / my_a.digits(4);
+  result += 'd';
+  result -= false;
+  result *= null;
+  result /= "lmao";
+
+  bool compare = false;
+  compare = 4 < true;
+  compare = 'c' > "hello";
+  compare = null <= 'c';
+  compare = false >= 7;
+
+  bool equality = false;
+  equality = 'c' == 4;
+  equality = false != "str";
+
+  bool logical = false;
+  logical = "deez" && false;
+  logical = true || "nuts";
+
+  string get_input = null;
+  cin >> get_input;
+  cout << false;
+
+  if (0) {}
+  while ("lololol") {}
+  for (;'n';) {}
+  switch (false) {
+    default:
+      break;
+  }
+  switch ('d') {
+    case 1:
+      break;
+    default:
+      break;
+  }
+
+
+}
