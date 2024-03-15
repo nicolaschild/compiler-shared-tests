@@ -288,15 +288,6 @@ def test_valid_symbol_table_smith(input_string: str) -> None:
         """,
         """
         class Foo {
-            private void Test() {
-                Cheese;
-            }
-        }
-        class Cheese {}
-        void main(){}
-        """,
-        """
-        class Foo {
             private void Cheese() {
             }
         }
@@ -431,11 +422,6 @@ def test_undeclared_variables(input_string: str) -> None:
     }
     """,
     #Unary operators
-    """
-    void main() {
-        +1;
-    }
-    """,
     """
     void main() {
         +true;
@@ -1193,6 +1179,15 @@ def test_invalid_types(input_string: str) -> None:
         Cheese c = new Cheese(4, 'a', "hello");
     }
     """,
+    """
+    class Foo {
+        private void Test() {
+            Cheese;
+        }
+    }
+    class Cheese {}
+    void main(){}
+    """
 
 ])
 def test_valid_types(input_string: str) -> None:
@@ -1219,6 +1214,44 @@ def test_valid_types(input_string: str) -> None:
         }
     }
     void main() {}
+    """,
+    # Static functions can declare variables. They can also access static variables
+    """
+    class Cheese {
+        public int x = 4;
+        static public int cheddar() {
+            int x = 4;
+            return x;
+        }
+    }
+    void main() {}
+    """,
+    # Static functions can access static variables
+    """
+    class Cheese {
+        static public int x = 4;
+        static public int cheddar() {
+            return x;
+        }
+    }
+    void main() {}
+    """,
+    # Static functions calling other static functions OK
+    """
+    class Booz {
+        static public int pleaseWork() {
+            return 1;
+        }
+    }
+
+    class Cheese {
+        static public Booz b;
+        static public void cheddar() {
+            b.pleaseWork();
+        }
+    }
+
+    void main() {}
     """
     ])
 def test_valid_static(input_string: str) -> None:
@@ -1237,7 +1270,44 @@ def test_valid_static(input_string: str) -> None:
         private void failure() {}
     }
     void main() {}
-    """])
+    """,
+    """
+    class Beeze {
+        public int z = 2;
+    }
+    class Cheese {
+        static public Beeze b;
+        static public int x = b.z;
+    }
+    void main() {}
+    """,
+    #Static functions can't access non-static data members
+    """
+    class Cheese {
+        public int x = 4;
+        static public int cheddar() {
+                return x;
+        }
+    }
+    void main() {}
+    """,
+    """
+    class Booz {
+        public int pleaseFail() {
+            return 1;
+        }
+    }
+
+    class Cheese {
+        static public Booz b;
+        static public void cheddar() {
+            b.pleaseFail();
+        }
+    }
+
+    void main() {}
+    """
+    ])
 def test_invalid_static(input_string: str) -> None:
     """Test the semantics of the input string"""
     _, stderr, returncode = run_parser(input_string)
@@ -1300,9 +1370,6 @@ def test_valid_breaks(input_string: str) -> None:
     _, stderr, returncode = run_parser(input_string)
     assert returncode == 0
     assert stderr == ""
-
-#Invalid Writes
-    
 
 # Shared tests
 @pytest.mark.parametrize(
@@ -1721,3 +1788,654 @@ def test_type_checker_success(input_string: str) -> None:
     """Test the type checker with expected successes."""
     _, _, returncode = run_parser(input_string)
     assert returncode == 0, "Expected no error but an error was thrown."
+
+# More shared tests (should fail)
+@pytest.mark.parametrize("input_string", [
+    # Bad assignment
+    """
+    void main() {
+        int x = 1;
+        char y = 'c';
+        string z = "string";
+        bool b = true;
+        x == y;
+        z <= "string";
+        b >= false;
+    }
+    """,
+    # Invalid params
+    """
+    class MyClass {
+        static public void func(int a, char b) {}
+    }    
+    void main(){
+        MyClass.func('c', 1);
+        MyClass.func();
+    }
+    """,
+    # Bad binary type check
+    """
+    void main(){
+        char x = 'c';
+        int y = x + 2;
+        int z = y - x * 3;
+    }
+    """,
+    # Bad comp type check
+    """
+    void main(){
+        int x = 1;
+        char y = 'c';
+        string z = "string";
+        bool b = true;
+        x == y;
+        z <= "string";
+        b >= false;
+    }
+    """,
+    # Bad dec type check
+    """
+    void main() { 
+        bool x = 1;
+        int y = 'c';
+        char z = "string";
+        string b = true;
+    }
+    """,
+    # Bad io type check
+    """
+    void main(){
+        string x;
+        cin >> x;
+        cout << true;
+    }
+    """,
+    # Bad logic type check
+    """
+    void main(){
+        int x = 1;
+        x >= 1 || 5;
+        "apple" && x == 1;
+    }
+    """,
+    # Bad loop type check
+    """
+    void main(){
+        while ('c') {
+            for (;1+1;) {
+                if (null) {}
+            } 
+        }
+    }
+    """,
+    # Bad return type check
+    """
+    class MyClass {
+        static public int func(){
+            return 'c';
+        }
+        static public int func2(){}
+        static public void func3(){
+            return 1;
+        }
+    }    
+    void main(){}
+    """,
+    # Bad switch type
+    """
+    void main(){
+    int x = 1;
+    switch (x) {
+        case 'c': x = x+1;
+        case 2: x = x+2;
+        default: x = x;
+    }
+    }
+    """,
+    # Bad unary type check
+    """
+    void main() {
+        int x = -1;
+        bool y = true;
+        +y;
+        !x;
+    }
+    """,
+    # Double declared constructor
+    """
+    class MyClass { 
+        public int x;
+        static public char y;
+        MyClass(int a, int b) {}
+        public int[] myfunc() {}
+        MyClass() {}
+    }
+    void main(){}
+    """,
+    # Double declared data
+    """
+    class MyClass { 
+        public int x;
+        static public char x;
+        MyClass(int a, int b) {}
+        public int[] myfunc() {}
+    }
+    void main(){}
+    """,
+    # Double declared function
+    """
+    class MyClass { 
+        public int x;
+        static public char y;
+        MyClass(int a, int b) {}
+        public int[] myfunc() {}
+        public string myfunc() {}
+    }
+    void main(){}
+    """,
+    """
+    class main { 
+        public int x;
+        static public char y;
+        main(int a, int b) {}
+        public int[] myfunc() {}
+    }
+    void main() {}
+    """,
+    # Double declared mix
+    """
+    class MyClass { 
+        public int x;
+        static public char y;
+        MyClass(int a, int b) {}
+        public int[] myfunc() {}
+        public string x() {}
+    }
+    void main(){}
+    """,
+    # Double declared parameter
+    """
+    class MyClass { 
+        public void myfunc(int x) {
+            string x = "oops";
+        }
+    }
+    void main(){}
+    """,
+    # Double declared variable
+    """
+    void main(){
+        int j = 4;
+        char j = 'j';
+    }
+    """,
+    # Invalid Constructor
+    """
+    class MyClass { 
+        public int x;
+        static public char y;
+        derp(int a, int b) {}
+        public int[] myfunc() {}
+    }
+    void main(){}
+    """,
+    # Invalid data member access
+    """
+    class MyClass {
+        public int x;
+    }
+    void main(){
+        MyClass c = new MyClass();
+        int y = c.q;
+    }
+    """,
+    # Constructor param check
+    """
+    class MyClass {
+        MyClass(int a, char b) {}
+    }    
+    void main(){
+        MyClass A = new MyClass('c', 1);
+        MyClass B = new MyClass();
+    }
+    """,
+    # Non instanced non-static member reference / call
+    """
+    class MyClass {
+        public int x;
+        public int myfunc() {
+            return x + 1;
+        }
+    }
+    void main(){
+        MyClass.x = MyClass.myfunc();
+    }
+    """,
+    # Non-static in static
+    """
+    class MyClass {
+        public int x;
+        static public int myfunc() {
+            return x + 1;
+        }
+    }
+    void main(){}
+    """,
+    # Invalid scopes
+    """
+    class MyClass { 
+        public void myfunc(int x) {
+            return j + 1;
+        }
+    }
+    void main(){
+        int j = 4;
+    }
+    """,
+    # Ensure scope looks to parent
+    """
+    void main(){
+    {
+        int y = 6;
+    }
+        y = 4;
+    }
+    """,
+    # This in static function
+    """
+    class MyClass {
+        public int x;
+        static public int myfunc() {
+            return this.x + 1;
+        }
+    }
+    void main(){}
+    """,
+    #This in static declaration
+    """
+    class MyClass {
+        private int x = 4;
+        static private int y = this.x + 1;
+    }
+    void main(){}
+    """
+])
+
+def test_invalid_types_shared(input_string: str) -> None:
+    """Test the semantics of the input string"""
+    _, stderr, returncode = run_parser(input_string)
+    assert returncode == 1
+    assert stderr == ""
+
+@pytest.mark.parametrize("input_string", [
+    # Args type check
+    """
+    class MyClass {
+        static public void func(int a, char b) {}
+    }    
+    void main(){
+        MyClass.func(1, 'c');
+    }
+    """,
+    # Assign type check
+    """
+    void main() {
+        int x;
+        char y;
+        string z;
+        bool b;
+        x = 1;
+        y = 'c';
+        z = "string";
+        b = true;
+    }
+    """,
+    # Binary type check
+    """
+    void main(){
+        int x = 1;
+        int y = x + 2;
+        int z = y - x * 3;
+    }
+    """,
+    # Class scope
+    """
+    class MyClass { 
+        public int x;
+        static public char y;
+        MyClass(int a, int b) {}
+    }
+    class MyClass2 { 
+        public int x;
+        static public char y;
+        MyClass2(int a, int b) {}
+    }
+    void main(){}
+    """,
+    # Comparison type check
+    """
+    void main(){
+        int x = 1;
+        char y = 'c';
+        string z = "string";
+        bool b = true;
+        x >= 1;
+        y <= 'a';
+        z == "string";
+        b != false;
+    }
+    """,
+    # Declaration type check
+    """
+    void main() {
+        int x = 1;
+        char y = 'c';
+        string z = "string";
+        bool b = true;
+    }
+    """,
+    # Dot operator type check
+    """
+    class MyClass {
+        public int x = 4;
+        public void func() {}
+    }    
+    void main(){
+        MyClass A = new MyClass();
+        A.func();
+        int x = A.x;
+    }
+    """,
+    # Indexed type check
+    """
+    void main(){
+        int[][][] x = new int[][][10];
+        x[0] = new int[][10];
+        x[0][1] = new int[10];
+        x[0][1][2] = 1;
+        int y = x[0][1][2];
+    }
+    """,
+    # Instanced dot operator type check
+    """
+    class MyClass {
+        public int x;
+    }
+    void main(){
+        MyClass c = new MyClass();
+        int y = c.x;
+    }
+    """,
+    # Instanced static member
+    """
+    class MyClass {
+        static public int x;
+    }
+    void main(){
+        MyClass c = new MyClass();
+        int y = c.x;
+    }
+    """,
+    # IO type check
+    """
+    void main(){
+        int x;
+        char y;
+        cin >> x;
+        cin >> y;
+        cout << 'c';
+        cout << 1;
+        cout << "thing";
+    }
+    """,
+    # Logic type check
+    """
+    void main(){
+        int x = 1;
+        char y = 'c';
+        x >= 1 || x <= 1;
+        x == 1 && y == 'c';
+    }
+    """,
+    # Loop type check
+    """
+    void main() {
+        int x = 0;
+        while (true) {
+            for (x=10;x>0;) {
+                if (x > 0) {
+                    x = x - 1;
+                }
+            } 
+        }
+    }
+    """,
+    # Main callable
+    """
+    class MyClass {
+        static public void myfunc() {
+            main();
+        }
+    }
+    void main(){}
+    """,
+    # Nested dot
+    """
+    class MyClass {
+        public int x;
+        static public MyClass myfunc() {}
+    }
+    void main(){
+        MyClass.myfunc().x;
+    }
+    """,
+    # Nested dot 2
+    """
+    class MyClass {
+        public int x = 4;
+        public void func() {}
+    }
+    class MyClass2 {
+        public MyClass func() {
+            MyClass c = new MyClass();
+            return c;
+        }
+    }   
+    void main(){
+        MyClass2 A = new MyClass2();
+        int x = A.func().x;
+    }
+    """,
+    # Constructor params type check
+    """
+    class MyClass {
+        MyClass(int a, char b) {}
+    }    
+    void main(){
+        MyClass A = new MyClass(1, 'c');
+    }
+    """,
+    # New index type check
+    """
+    void main() {
+        int[][][] x = new int[][][10];
+    }
+    """,
+    # Return type check
+    """
+    class MyClass {
+        static public int func(){
+            return 1;
+        }
+        static public void func2(){}
+        static public void func3(){
+            return;
+        }
+    }    
+    void main(){}
+    """,
+    # Class Scope
+    """
+    class MyClass { 
+        public int x;
+        MyClass(int a, int b) {}
+        public void myfunc() {
+            x = 4;
+        }
+    }
+    void main(){}
+    """,
+    # Function Scope
+    """
+    class MyClass { 
+        public void myfunc() {
+            int x = 4;
+            x = 5;
+        }
+    }
+    void main(){}
+    """,
+    # Param Scope
+    """
+    class MyClass {
+        public int myfunc(int x) {
+            return x + 1;
+        }
+    }
+    void main(){}
+    """,
+    # Static in static
+    """
+    class MyClass {
+        static public int x;
+        static public int myfunc() {
+            return x + 1;
+        }
+    }
+    void main(){}
+    """,
+    # Static method call
+    """
+    class MyClass {
+        static public int x;
+        static public int myfunc() {
+            return x + 1;
+        }
+    }
+    void main(){
+        MyClass.x = MyClass.myfunc();
+    }
+    """,
+    # Switch
+    """
+    void main(){
+        int x = 1;
+        char y = 'c';
+        switch (x) {
+            case 1: x = x+1;
+            case 2: x = x+2;
+            default: x = x;
+        }
+        switch (y) {
+            case 'c': true;
+            case 'q': false;
+            default: false;
+        }
+        switch (x) {
+            default: x = 0;
+        }
+    }
+    """,
+    # This in non-static declaration
+    """
+    class MyClass {
+        private int x = 4;
+        private int y = this.x + 1;
+    }
+    void main(){}
+    """,
+    # Unary type check
+    """
+    void main(){
+        int x = -1;
+        bool y = true;
+        x = +x;
+        !y;
+    }
+    """,
+    """
+    class MyClass {
+        static public int x;
+        static public MyClass myfunc() {
+            MyClass x = new MyClass();
+            return x;
+        }
+    }
+
+    void main() {
+        MyClass.myfunc();
+    }
+    """,
+    # We can always reference a class name
+    """
+    class MyClass {
+        static public int x;
+        static public MyClass myfunc() {
+            return MyClass;
+        }
+    }
+
+    void main() {
+        MyClass.myfunc();
+    }
+    """,
+    """
+    class MyClass {
+        static public int x;
+        static public void myfunc() {
+            MyClass;
+        }
+    }
+
+    void main() {
+        MyClass;
+    }
+    """
+])
+
+def test_valid_types_shared(input_string: str) -> None:
+    """Test the semantics of the input string"""
+    _, stderr, returncode = run_parser(input_string)
+    assert returncode == 0
+    assert stderr == ""
+
+#Invalid Writes
+@pytest.mark.parametrize("input_string", [
+    # Only have to worry about items of the same type or unification
+    """
+    void main() {
+        4 = 3;
+    }
+    """,
+    """
+    void main() {
+        "string" = null;
+    }
+    """,
+    """
+    void main() {
+        null = null;
+    }
+    """,
+    """
+    void main() {
+        true = false;
+    }
+    """,
+    ])
+
+def test_invalid_writes(input_string: str) -> None:
+    """Test the semantics of the input string"""
+    _, stderr, returncode = run_parser(input_string)
+    assert returncode == 1
+    assert stderr == ""
