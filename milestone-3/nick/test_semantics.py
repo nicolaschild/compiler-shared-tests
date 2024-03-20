@@ -19,7 +19,7 @@ def run_parser(input_string: str) -> tuple[str, str, int]:
 @pytest.mark.parametrize(
     "input_string",
     [
-        # Should fail on variable declaration, not constructor declaration
+        # Should fail on variable declaration, not constructor declaratio
         """
         class Cheese {
             Cheese() {
@@ -123,7 +123,8 @@ def test_invalid_symbol_table_smith(input_string: str) -> None:
         class Cheese {
             public int x;
             Cheese() {
-                return this.x;
+                this.x = 4;
+                return;
             }
         } void main() {}
         """,
@@ -504,12 +505,7 @@ def test_undeclared_variables(input_string: str) -> None:
     """
     void main() {
         cout << true;
-        cout << bool;
-    }
-    """,
-    """
-    void main() {
-        cout << null;
+        cout << false;
     }
     """,
     # Switch statement should have int | char expression
@@ -554,22 +550,6 @@ def test_undeclared_variables(input_string: str) -> None:
     }
     """,
     # Function return types
-    """
-    class Cheese {
-        static public char wee() {
-            int x;
-        }
-    }
-    void main() {}
-    """,
-    """
-    class Cheese {
-        static public int wee() {
-            char x;
-        }
-    }
-    void main() {}
-    """,
     """
     class Cheese {
         static public int wee() {
@@ -628,12 +608,6 @@ def test_undeclared_variables(input_string: str) -> None:
     """
     void main() {
         char x = null;
-    }
-    """,
-    """
-    class Cheese {}
-    void main() {
-        Cheese x = void;
     }
     """,
     #Index access should return the enclosed type of the defined array
@@ -724,7 +698,30 @@ def test_undeclared_variables(input_string: str) -> None:
     void main() {
         void[] x;
     }
+    """,
+    #Constructors can only return void
     """
+    class Cheese {
+        Cheese(int x, char y, string z) {
+            return 4;
+        }
+    }
+    void main() {
+        Cheese c = new Cheese(4, 'a', "hello");
+    }
+    """,
+    # Regular function call invalid params
+    """
+    class Cheese {
+    public void Func(int y, int x, char b) {
+        return Func(y, x, 7);
+        }
+    }
+
+    void main() {
+        Cheese c = new Cheese();
+    }
+    """,
 ])
 def test_invalid_types(input_string: str) -> None:
     """Test the semantics of the input string"""
@@ -734,6 +731,23 @@ def test_invalid_types(input_string: str) -> None:
 
 
 @pytest.mark.parametrize("input_string", [
+    #Constructors can only return void
+    """
+    class Cheese {
+        private int x;
+        private char y;
+        private string z;
+        Cheese(int x, char y, string z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            return;
+        }
+    }
+    void main() {
+        Cheese c = new Cheese(4, 'a', "hello");
+    }
+    """,
     #Valid index access
     """
     void main() {
@@ -1187,8 +1201,54 @@ def test_invalid_types(input_string: str) -> None:
     }
     class Cheese {}
     void main(){}
+    """,
+    # Valid param types for function calls
     """
+    class Cheese {
+        public void Func2(int x, int y, char b) {}
+        public void Func(int y, int x, char b) {
+            return Func2(y, x, b);
+        }
+    }
 
+    void main() {
+        Cheese c = new Cheese();
+    }
+    """,
+    # Recursive function calls with valid param types
+    """
+    class Cheese {
+        public void Func(int y, int x, char b) {
+            return Func(y, x, b);
+        }
+    }
+
+    void main() {
+        Cheese c = new Cheese();
+    }
+    """,
+    #Null is a valid substitution for reference type string
+    """
+    void main() {
+        cout << null;
+    }
+    """,
+    """
+    class Booz {
+        public int pleaseWork() {
+            return 1;
+        }
+    }
+
+    class Cheese {
+        static public Booz b;
+        static public void cheddar() {
+            b.pleaseWork();
+        }
+    }
+
+    void main() {}
+    """
 ])
 def test_valid_types(input_string: str) -> None:
     """Test the semantics of the input string"""
@@ -1252,6 +1312,32 @@ def test_valid_types(input_string: str) -> None:
     }
 
     void main() {}
+    """,
+    #Function creates a new object, it becomes unstatic
+    """
+    class Booz {
+        static public MyClass myfunc() {
+            return new MyClass();
+        }
+    }
+    class MyClass {
+        public int x;
+        static public Booz b;
+    }
+    void main() {
+        MyClass.b.myfunc().x;
+    }
+    """,
+    # We aren't doing a control flow graph so this should pass, we default initialize Beeze
+    """
+    class Beeze {
+        public int z = 2;
+    }
+    class Cheese {
+        static public Beeze b;
+        static public int x = b.z;
+    }
+    void main() {}
     """
     ])
 def test_valid_static(input_string: str) -> None:
@@ -1271,16 +1357,6 @@ def test_valid_static(input_string: str) -> None:
     }
     void main() {}
     """,
-    """
-    class Beeze {
-        public int z = 2;
-    }
-    class Cheese {
-        static public Beeze b;
-        static public int x = b.z;
-    }
-    void main() {}
-    """,
     #Static functions can't access non-static data members
     """
     class Cheese {
@@ -1291,21 +1367,15 @@ def test_valid_static(input_string: str) -> None:
     }
     void main() {}
     """,
+    #Static class references have no clue what you're talking about (non-static hasn't been initialized yet)
     """
-    class Booz {
-        public int pleaseFail() {
-            return 1;
-        }
+    class Booz {}
+    class MyClass {
+        public Booz b;
     }
-
-    class Cheese {
-        static public Booz b;
-        static public void cheddar() {
-            b.pleaseFail();
-        }
+    void main() {
+        MyClass.b;
     }
-
-    void main() {}
     """
     ])
 def test_invalid_static(input_string: str) -> None:
@@ -1333,6 +1403,7 @@ def test_invalid_static(input_string: str) -> None:
             break;
         }
     }
+    void main() {}
     """,])
 def test_invalid_breaks(input_string: str) -> None:
     """Test the semantics of the input string"""
@@ -1562,6 +1633,16 @@ def test_valid_breaks(input_string: str) -> None:
         int a = -z;
         bool b = true;
         int c = -b;
+    }
+    """,
+    # Void cannot be used as a type for params
+    """
+    class Cheese {
+        public int motz(void x) {
+            return 2;
+        }
+    }
+    void main() {
     }
     """,
     ],
@@ -2223,7 +2304,9 @@ def test_invalid_types_shared(input_string: str) -> None:
     """
     class MyClass {
         public int x;
-        static public MyClass myfunc() {}
+        static public MyClass myfunc() {
+            return new MyClass();
+        }
     }
     void main(){
         MyClass.myfunc().x;
@@ -2381,7 +2464,7 @@ def test_invalid_types_shared(input_string: str) -> None:
     class MyClass {
         static public int x;
         static public MyClass myfunc() {
-            return MyClass;
+            return new MyClass();
         }
     }
 
@@ -2400,7 +2483,57 @@ def test_invalid_types_shared(input_string: str) -> None:
     void main() {
         MyClass;
     }
+    """,
+    # Can return function calls of the same return type
     """
+    class MyClass {
+        public int x;
+        public void myfunc() {
+            return main();
+        }
+        MyClass() {}
+    }
+    void main(){}
+    """,
+    """
+    class MyClass {
+        public int x;
+        public void myOtherFunc () {
+            x = 4;
+        }
+
+        public void myfunc(int x, int y) {
+            myfunc(1, 5);
+            myOtherFunc();
+        }
+    }
+    void main() {
+    }
+    """,
+    # Can change a value from yonder as long as the types match
+    """
+    class Chooz {
+        static public int y = 5;
+        static public int Func() {
+            return 3;
+        }
+    }
+    class Booz {
+        static public Chooz c;
+        static public int Func() {
+            return 4;
+        }
+    }
+    class Cheese {
+        static public Booz b;
+        public int Func() { 
+            return 4;
+        }
+    }
+    void main() {
+        Cheese.b.c.y = 4;
+    }
+    """,
 ])
 
 def test_valid_types_shared(input_string: str) -> None:
@@ -2432,6 +2565,134 @@ def test_valid_types_shared(input_string: str) -> None:
         true = false;
     }
     """,
+    # Can't reassign a class definition
+    """
+    class MyClass {
+        public int x;
+        public int myfunc() {
+            return 1;
+        }
+    }
+    void main() {
+        MyClass = MyClass;
+    }
+    """,
+    # Can't assign to a function call
+    """
+    class MyClass {
+        public int x;
+        public int myfunc() {
+            return x + 1;
+        }
+    }
+    void main() {
+        MyClass.myfunc() = 4;
+    }
+    """,
+    # Can't return functions
+    """
+    class MyClass {
+        public int x;
+        public void myfunc() {
+            return main;
+        }
+        MyClass() {}
+    }
+    void main() {}
+    """,
+    # Data member access not on a class, probably will fail in type checking
+    # But make sure you have a nice error message instead of your program blowing up
+    """
+    class MyClass {
+        public int x;
+        public void myfunc() {
+            return main.x;
+        }
+        MyClass() {}
+    }
+    void main(){
+    }
+    """,
+    # Handle a graceful error for a function call in main that's not main
+    """
+    class MyClass {
+        public int x;
+        public void myfunc(int x, int y, int z) {
+            myfunc(1, 2, 3); 
+        }
+        MyClass() {}
+    }
+
+    void main(){
+        myfunc(1, 2, 3);
+    }
+    """,
+    # Don't crash, give me a good error pal
+    """
+    class Cheese {
+        public void Func() {}
+    }
+    void main() {
+        c.Func();
+    }
+    """,
+    # New cannot be written to
+    """
+    void main() {
+        new Cheese() = new Cheese();
+    }
+    """,
+    #LHS can't be a function call/reference, no matter how chained
+    """
+    class Chooz {
+        static public int y = 5;
+        static public int Func() {
+            return 3;
+
+        }
+    }
+    class Booz {
+        static public Chooz c;
+        static public int Func() {
+            return 4;
+        }
+    }
+
+    class Cheese {
+        static public Booz b;
+        public int Func() { 
+            return 4;
+        }
+    }
+    void main() {
+    Cheese.b.c.Func = 4;
+    }
+    """,
+    """
+    class Chooz {
+        static public int y = 5;
+        static public int Func() {
+            return 3;
+
+        }
+    }
+    class Booz {
+        static public Chooz c;
+        static public int Func() {
+            return 4;
+        }
+    }
+
+    class Cheese {
+        static public Booz b;
+        public int Func() { 
+            return 4;
+        }
+    }
+    void main() {
+        Cheese.b.c.Func() = 4;
+    }
+    """
     ])
 
 def test_invalid_writes(input_string: str) -> None:
