@@ -722,6 +722,7 @@ def test_undeclared_variables(input_string: str) -> None:
         Cheese c = new Cheese();
     }
     """,
+
 ])
 def test_invalid_types(input_string: str) -> None:
     """Test the semantics of the input string"""
@@ -846,26 +847,7 @@ def test_invalid_types(input_string: str) -> None:
         1 / 2;
     }
     """,
-    """
-    void main() {
-        1 += 2;
-    }
-    """,
-    """
-    void main() {
-        1 -= 2;
-    }
-    """,
-    """
-    void main() {
-        1 *= 2;
-    }
-    """,
-    """
-    void main() {
-        1 /= 2;
-    }
-    """,
+
     """
     void main() {
         +'a';
@@ -2692,7 +2674,28 @@ def test_valid_types_shared(input_string: str) -> None:
     void main() {
         Cheese.b.c.Func() = 4;
     }
+    """,
+    # 1 = 1 + 2, this is bad news
     """
+    void main() {
+        1 += 2;
+    }
+    """,
+    """
+    void main() {
+        1 -= 2;
+    }
+    """,
+    """
+    void main() {
+        1 *= 2;
+    }
+    """,
+    """
+    void main() {
+        1 /= 2;
+    }
+    """,
     ])
 
 def test_invalid_writes(input_string: str) -> None:
