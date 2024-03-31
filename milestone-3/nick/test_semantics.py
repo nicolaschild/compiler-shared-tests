@@ -2696,10 +2696,68 @@ def test_valid_types_shared(input_string: str) -> None:
         1 /= 2;
     }
     """,
+    """
+    void main() {
+        int x; int y; int z;
+        cout << x != y = 4;
+    }
+    """,
+    """
+    void main() {
+        int x; int y; int z;
+        x = y = 1 + (z += 5);
+        x = y = 1 + z += 5;
+    }
+    """,
+    """
+    void main() {
+        int x; int y; int z;
+        cin >> x = y;
+    }
+    """,
+    """
+    void main() {
+        int x; int y; int z;
+        cin >> x += y;
+    }
+    """
     ])
 
 def test_invalid_writes(input_string: str) -> None:
     """Test the semantics of the input string"""
     _, stderr, returncode = run_parser(input_string)
     assert returncode == 1
+    assert stderr == ""
+
+@pytest.mark.parametrize("input_string", [
+        """
+        void main() {
+            int x; int y; int z;
+            x = 5;
+        }
+        """,
+        """
+        void main() {
+            int x; int y; int z;
+            x = y = z; // should be valid
+        }
+        """,
+        """
+        void main() {
+            int x; int y; int z;
+            x -= y *= z; // should be valid
+        }
+        """,
+        """
+        void main() {
+            int x; int y; int z;
+            cout << x = y;
+        }
+        """
+])
+
+def test_valid_writes(input_string: str) -> None:
+    """Test the semantics of the input string"""
+    _, stderr, returncode = run_parser(input_string)
+    assert returncode == 0
     assert stderr == ""
