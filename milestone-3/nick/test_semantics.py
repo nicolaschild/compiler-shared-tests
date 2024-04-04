@@ -1358,6 +1358,23 @@ def test_valid_static(input_string: str) -> None:
     void main() {
         MyClass.b;
     }
+    """,
+    # This is not allowed
+    """
+    class Cheese {
+        static public int x = 4;
+        static public int y = this.x;
+    }
+
+    void main() {
+    }
+    """,
+    """
+    class Cheese {
+        public int x = 4;
+        static public int y = this.x;
+    }
+    void main() {}
     """
     ])
 def test_invalid_static(input_string: str) -> None:
