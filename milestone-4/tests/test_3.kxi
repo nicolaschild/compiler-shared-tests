@@ -1,0 +1,10 @@
+
+void main() {
+    int x = 0;
+    if  x < 1  {
+            cout << "This should print";
+    }
+    else {
+            cout << "This should not print";
+    }
+}

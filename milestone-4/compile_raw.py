@@ -1,11 +1,11 @@
 tests = [
 """
-    void main   {
+    void main() {
     cout << "Hello World!";
 }
 """,
 """
-    void main  {
+    void main(){
     int n = 1;
     switch n {
         case 1:
@@ -22,7 +22,7 @@ tests = [
 }
 """
 """,
-void main   {
+void main() {
     int x = 0;
     if  1 < x  {
             cout << "This should not print";
@@ -30,7 +30,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 0;
     if  x < 1  {
             cout << "This should print";
@@ -41,7 +41,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 0;
     if  x > 1  {
             cout << "This should not print";
@@ -52,7 +52,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 0;
     if  1 > x  {
             cout << "This should print";
@@ -63,7 +63,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 0;
     if  x == 0  {
         cout << "This should print";
@@ -74,7 +74,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 1;
     if  0 == x  {
         cout << "This should not print";
@@ -85,7 +85,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 0;
     if  x != 1  {
         cout << "This should print";
@@ -96,7 +96,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 1;
     if  1 != x  {
         cout << "This should not print";
@@ -104,9 +104,10 @@ void main   {
     else {
         cout << "This should print";
     }
+}
 """,
 """
-void main   {
+void main() {
     int x = 0;
     if  x == 0  {
         if  x == 0  {
@@ -116,7 +117,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 0;
     if  x == 0  {
         if  x == 0  {
@@ -128,7 +129,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 0;
     if  x != 0  {
         cout << "This should not print";
@@ -141,7 +142,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 0;
     if  x != 0  {
         cout << "This should not print";
@@ -157,7 +158,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int i = 0;
     for  i = 0; i < 5; i = i + 1  {
         cout << i;
@@ -165,7 +166,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int i = 0;
     for  ; i < 5; i = i + 1  {
         cout << i;
@@ -173,7 +174,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int i = 0;
     for  ; i < 5;  {
         cout << i;
@@ -182,7 +183,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int i = 0;
     for  ; i < 5;  {
         cout << i;
@@ -194,7 +195,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int i = 0;
     for  ; i < 3; i = i + 1  {
         int j = 0;
@@ -206,7 +207,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int i = 0;
     for  ; i < 3; i = i + 1  {
         int j = 0;
@@ -221,7 +222,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int i = 0;
     while  i < 5  {
         cout << i;
@@ -230,7 +231,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int i = 0;
     while  i < 3  {
         int j = 0;
@@ -244,7 +245,7 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int i = 0;
     while  i < 3  {
         int j = 0;
@@ -261,7 +262,7 @@ void main   {
 }
 """,
 """
-    void main   {
+    void main() {
     int x = 1;
     int y = 2;
     int z = x + y;
@@ -269,7 +270,7 @@ void main   {
     }
 """, 
 """
-void main   {
+void main() {
     int x = 1;
     int y = 2;
     {
@@ -284,13 +285,13 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x += 1 - 3 * 2 / 2 + 1;
     cout << x + 12; 
 }
 """,
 """
-void main   {
+void main() {
     int x = 1;
     int y = 2;
     int z = 3;
@@ -298,84 +299,84 @@ void main   {
 }
 """,
 """
-void main   {
+void main() {
     int x = 1;
     x -= 1;
     cout << x;
 }
 """,
 """
-void main   {
+void main() {
     int x = 1;
     x += 1;
     cout << x;
 }
 """,
 """
-void main   {
+void main() {
     int x = 2;
     x /= 2;
     cout << x;
 }
 """,
 """
-void main   {
+void main() {
     int x = 2;
     x *= 2;
     cout << x;
 }
 """,
 """
-void main   {
+void main() {
     if  !false  {
         cout << "This should print";
     }
 }
 """,
 """
-void main   {
+void main() {
     if  !!true  {
         cout << "This should print";
     }
 }
 """,
 """
-void main   {
+void main() {
     if  true && true  {
         cout << "This should print";
     }
 }
 """,
 """
-void main   {
+void main() {
     if  false && true  {
         cout << "This should not print";
     }
 }
 """,
 """
-void main   {
+void main() {
     if  true || false  {
         cout << "This should print";
     }
 }
 """,
 """
-void main   {
+void main() {
     if  false || false  {
         cout << "This should not print";
     }
 }
 """,
 """
-void main   {
+void main() {
     if  true && true || false  {
         cout << "This should print";
     }
 }
 """,
 """
-void main   {
+void main() {
     if  true && false || false  {
         cout << "This should not print";
     }

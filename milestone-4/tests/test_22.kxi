@@ -1,0 +1,16 @@
+
+void main() {
+    int i = 0;
+    while  i < 3  {
+        int j = 0;
+        while  j < 3  {
+            cout << i;
+            cout << j;
+            j = j + 1;
+            if  j == 1  {
+                break;
+            }
+        }
+        i = i + 1;
+    }
+}
