@@ -1,4 +1,193 @@
 tests = [
+    """
+        void main(){
+            int c = 2;
+            c < 2 || c += 5 < 2;
+            cout << c;
+            }
+        ---
+        2
+            """,
+            """
+        void main(){
+            int c = 2;
+            false && (c += 1) > 2;// false and true
+            cout << c;
+            }
+        ---
+        2
+            """,
+            """
+        void main(){
+            int c = 2;
+            true && false || (c += 1) > 2;// false and true
+            cout << c;
+            }
+        ---
+        3
+            """,
+            """
+        void main(){
+            int c = 2;
+            false && (c += 2) > 2;// false and true
+            cout << c;
+            }
+        ---
+        2
+            """,
+            """
+        void main(){
+            int c = 2;
+            true && (c += 2) > 2;// true and false
+            cout << c;
+            }
+        ---
+        4
+        """,
+        """
+        void main(){
+            int n = 3;
+            int t = 3;
+            (n += 1) > 3 || (t += 2) > 3;
+            cout << n;
+            cout << t;
+            }
+        ---
+        45
+        """,
+        """
+        void main(){
+            int n = 3;
+            int t = 3;
+            (n += 1) == 4 || (t += 2) > 2;
+            cout << n;
+            cout << t;
+            }
+        ---
+        43
+        """,
+        """
+        void main(){
+            int n = 1;
+            switch(n){
+                case 1:
+                    cout << "one";
+                    break;
+                case 2:
+                case 3:
+                    cout << "two or three";
+                    break;
+                default:
+                    cout << "a number not in the range of 1 to 3";
+                    break;
+                }
+            }
+        ---
+        one
+        """,
+        """
+        void main(){
+            int n = 2;
+            switch(n){
+                case 1:
+                    cout << "one";
+                    break;
+                case 2:
+                case 3:
+                    cout << "two or three";
+                    break;
+                default:
+                    cout << "a number not in the range of 1 to 3";
+                    break;
+                }
+            }
+        ---
+        two or three
+        """,
+        """
+        void main(){
+            int n = 0;
+            switch(n){
+                case 1:
+                    cout << "one";
+                    break;
+                case 2:
+                case 3:
+                    cout << "two or three";
+                    break;
+                default:
+                    cout << "a number not in the range of 1 to 3";
+                    break;
+                }
+            }
+        ---
+        a number not in the range of 1 to 3
+        """,
+        """
+        void main(){
+            int n = 2;
+            switch(n){
+                case 1:
+                    cout << "one";
+                    break;
+                case 2:
+                case 3:
+                    switch (n) {
+                        case 2:
+                            cout << "two";
+                            break;
+                        case 3:
+                            cout << "three";
+                            break;
+                        default:
+                            cout << "something else";
+                            break;
+                    }
+                    break;
+                default:
+                    cout << "outer something else";
+                    break;
+                }
+            }
+        ---
+        two
+            """,
+            """
+        void main(){
+        if(false){cout << "upper";} else {cout << "lower";}}
+        ---
+        lower
+            """,
+            """
+        void main(){
+        bool x = 1 < 5 || false;
+        if(x){cout << "upper";} else {cout << "lower";}}
+        ---
+        upper
+            """
+                """
+        void main(){
+        int x = 10;
+        while(x > 0){
+            cout << x;
+            x = x - 1;
+        }
+        }
+        ---
+        10987654321
+            """,
+            """
+        void main(){
+        int x = 10;
+        while(x > 0){
+            cout << x;
+            true || x < (x += 10);
+            x = x - 1;
+        }
+        }
+        ---
+        10987654321
+        """,
 """
     void main   {
     cout << "Hello World!";
@@ -381,13 +570,3 @@ void main   {
     }
 }
 """]
-
-def main() -> None:
-    counter = 0
-    for test in tests:
-        counter += 1
-        with open(f'./tests/test_{counter}.kxi', 'w') as file:
-            file.write(test)
-
-if __name__ == "__main__":
-    main()
