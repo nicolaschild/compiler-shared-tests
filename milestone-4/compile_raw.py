@@ -381,3 +381,13 @@ void main   {
     }
 }
 """]
+
+def main() -> None:
+    counter = 0
+    for test in tests:
+        counter += 1
+        with open(f'./tests/test_{counter}.kxi', 'w') as file:
+            file.write(test)
+
+if __name__ == "__main__":
+    main()
