@@ -396,17 +396,38 @@ tests = [
         }
     }
     ---
+    01234
+    """,
+    """
+    void main() {
+        int i = 0;
+        for(; i <= 5; i = i + 1){
+            cout << i;
+        }
+    }
+    ---
+    012345
+    """,
+    """
+    void main() {
+        int i = 0;
+        for(; i != 5; i = i + 1){
+            cout << i;
+        }
+    }
+    ---
+    01234
     """,
     """
     void main() {
         int i = 0;
         for (; i < 5;) {
             cout << i;
-            i = i + 1;
+            i = i + 2;
         }
     }
     ---
-
+    024
     """,
     """
     void main() {
