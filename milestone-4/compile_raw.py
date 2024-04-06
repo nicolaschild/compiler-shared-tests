@@ -9,54 +9,54 @@ tests = [
         7
     """,
     """
-        void main(){
-            int c = 2;
-            false && (c += 1) > 2;// false and true
-            cout << c;
-            }
-        ---
-        3
-    """,
-    """
-        void main(){
-            int c = 2;
-            true && false || (c += 1) > 2;// false and true
-            cout << c;
-            }
-        ---
-        3
-    """,
-    """
-        void main(){
-            int c = 2;
-            false && (c += 2) > 2;// false and true
-            cout << c;
-            }
-        ---
-        2
-    """,
-    """
-        void main(){
-            int c = 2;
-            true && (c += 2) > 2;// true and false
-            cout << c;
-            }
-        ---
-        4
-    """,
-    """
-        void main(){
-            int n = 3;
-            int t = 3;
-            (n += 1) > 3 || (t += 2) > 3;
-            cout << n;
-            cout << t;
-            }
-        ---
-        43
+    void main(){
+        int c = 2;
+        false && (c += 1) > 2;// false and true
+        cout << c;
+        }
+    ---
+    2
     """,
     """
     void main(){
+        int c = 2;
+        true && false || (c += 1) > 2;// false and true
+        cout << c;
+    }
+    ---
+    3
+    """,
+    """
+    void main() {
+        int c = 2;
+        false && (c += 2) > 2;// false and true
+        cout << c;
+    }
+    ---
+    2
+    """,
+    """
+    void main() {
+        int c = 2;
+        true && (c += 2) > 2;// true and false
+        cout << c;
+    }
+    ---
+    4
+    """,
+    """
+    void main(){
+        int n = 3;
+        int t = 3;
+        (n += 1) > 3 || (t += 2) > 3;
+        cout << n;
+        cout << t;
+    }
+    ---
+    43
+    """,
+    """
+    void main() {
         int n = 3;
         int t = 3;
         (n += 1) == 4 || (t += 2) > 2;
@@ -86,71 +86,71 @@ tests = [
         one
     """,
     """
-        void main(){
-            int n = 2;
-            switch(n){
-                case 1:
-                    cout << "one";
-                    break;
-                case 2:
-                case 3:
-                    cout << "two or three";
-                    break;
-                default:
-                    cout << "a number not in the range of 1 to 3";
-                    break;
-                }
-            }
-        ---
-        two or three
+    void main(){
+        int n = 2;
+        switch(n){
+            case 1:
+                cout << "one";
+                break;
+            case 2:
+            case 3:
+                cout << "two or three";
+                break;
+            default:
+                cout << "a number not in the range of 1 to 3";
+                break;
+        }
+    }
+    ---
+    two or three
     """,
     """
-        void main(){
-            int n = 0;
-            switch(n){
-                case 1:
-                    cout << "one";
-                    break;
-                case 2:
-                case 3:
-                    cout << "two or three";
-                    break;
-                default:
-                    cout << "a number not in the range of 1 to 3";
-                    break;
-                }
-            }
-        ---
-        a number not in the range of 1 to 3
+    void main(){
+        int n = 0;
+        switch(n){
+            case 1:
+                cout << "one";
+                break;
+            case 2:
+            case 3:
+                cout << "two or three";
+                break;
+            default:
+                cout << "a number not in the range of 1 to 3";
+                break;
+        }
+    }
+    ---
+    a number not in the range of 1 to 3
     """,
     """
-        void main(){
-            int n = 2;
-            switch(n){
-                case 1:
-                    cout << "one";
-                    break;
-                case 2:
-                case 3:
-                    switch (n) {
-                        case 2:
-                            cout << "two";
-                            break;
-                        case 3:
-                            cout << "three";
-                            break;
-                        default:
-                            cout << "something else";
-                            break;
-                    }
-                    break;
-                default:
-                    cout << "outer something else";
-                    break;
+    void main(){
+        int n = 2;
+        switch(n){
+            case 1:
+                cout << "one";
+                break;
+            case 2:
+            case 3:
+                switch (n) {
+                    case 2:
+                        cout << "two";
+                        break;
+                    case 3:
+                        cout << "three";
+                        break;
+                    default:
+                        cout << "something else";
+                        break;
                 }
-            }
-        ---
-        two
+                break;
+            default:
+                cout << "outer something else";
+                break;
+        }
+    }
+    ---
+    two
     """,
     """
     void main(){
@@ -464,7 +464,7 @@ tests = [
         int i = 0;
         while (i < 3)  {
             int j = 0;
-            while  (j < 3)  {
+            while (j < 3)  {
                 cout << i;
                 cout << j;
                 j = j + 1;
@@ -476,15 +476,16 @@ tests = [
     000102101112202122
     """,
     """
+    //001020
     void main() {
         int i = 0;
-        while  i < 3  {
+        while (i < 3)  {
             int j = 0;
-            while  j < 3  {
+            while (j < 3)  {
                 cout << i;
                 cout << j;
                 j = j + 1;
-                if(j == 1){
+                if (j == 1) {
                     break;
                 }
             }
@@ -492,157 +493,166 @@ tests = [
         }
     }
     ---
+    001020
     """,
     """
     void main() {
-    int x = 1;
-    int y = 2;
-    int z = x + y;
-    cout << z;
-    }
----
-3
-""",
-    """
-void main() {
-    int x = 1;
-    int y = 2;
-    {
+        int x = 1;
+        int y = 2;
         int z = x + y;
+        cout << z;
+    }
+    ---
+    3
+    """,
+    """
+    void main() {
+        int x = 1;
+        int y = 2;
         {
-            int a = z + x;
+            int z = x + y;
             {
-                cout << a;
+                int a = z + x;
+                {
+                    cout << a;
+                }
             }
         }
     }
-}
----
-4
-""",
+    ---
+    4
+    """,
     """
-void main() {
-    int x = 1 - 3 * 2 / 2 + 1;
-    cout << x + 12; 
-}
----
-11
-""",
-    """
-void main() {
-    int x = 1;
-    int y = 2;
-    int z = 3;
-    cout << x + y * z;
-}
----
-7
-""",
-    """
-void main() {
-    int x = 1;
-    x -= 1;
-    cout << x;
-}
----
-0
-""",
-    """
-void main() {
-    int x = 1;
-    x += 1;
-    cout << x;
-}
----
-2
-""",
-    """
-void main() {
-    int x = 2;
-    x /= 2;
-    cout << x;
-}
----
-1
-""",
-    """
-void main() {
-    int x = 2;
-    x *= 2;
-    cout << x;
-}
----
-4
-""",
-    """
-void main() {
-    if(!false){
-        cout << "This should print";
+    void main() {
+        int x = 1 - 3 * 2 / 2 + 1;
+        cout << x + 12; 
     }
-}
----
-This should print
-""",
+    ---
+    11
+    """,
     """
-void main() {
-    if(!!true){
-        cout << "This should print";
+    void main() {
+        int x = 1;
+        int y = 2;
+        int z = 3;
+        cout << x + y * z;
     }
-}
----
-This should print
-""",
+    ---
+    7
+    """,
     """
-void main() {
-    if(true && true){
-        cout << "This should print";
+    void main() {
+        int x = 1;
+        x -= 1;
+        cout << x;
     }
-}
----
-This should print
-""",
+    ---
+    0
+    """,
     """
-void main() {
-    if(false && true){
-        cout << "This should not print";
+    void main() {
+        int x = 1;
+        x += 1;
+        cout << x;
     }
-}
----
-""",
+    ---
+    2
+    """,
     """
-void main() {
-    if(true || false){
-        cout << "This should print";
+    void main() {
+        int x = 2;
+        x /= 2;
+        cout << x;
     }
-}
----
-This should print
-""",
+    ---
+    1
+    """,
     """
-void main() {
-    if(false || false){
-        cout << "This should not print";
+    void main() {
+        int x = 2;
+        x *= 2;
+        cout << x;
     }
-}
----
-""",
+    ---
+    4
+    """,
     """
-void main() {
-    if(true && true || false){
-        cout << "This should print";
+    void main() {
+        if (!false) {
+            cout << "This should print";
+        }
     }
-}
----
-This should print
-""",
+    ---
+    This should print
+    """,
     """
-void main() {
-    if(true && false || false){
-        cout << "This should not print";
+    void main() {
+        if(!!true) {
+            cout << "This should print";
+        }
     }
-}
----
-""",
+    ---
+    This should print
+    """,
+    """
+    void main() {
+        if (true && true){
+            cout << "This should print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    void main() {
+        if (false && true) {
+            cout << "This should not print";
+        }
+    }
+    ---
+    """,
+    """
+    void main() {
+        if (true || false){
+            cout << "This should print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    void main() {
+        if(false || false){
+            cout << "This should not print";
+        }
+        else {
+            cout << "This should print";
+        }
+    }
+    ---
+    "This should print"
+    """,
+    """
+    void main() {
+        if(true && true || false) {
+            cout << "This should print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    void main() {
+        if (true && false || false) {
+            cout << "This should not print";
+        }
+        else {
+            cout << "This should print";
+        }
+    }
+    ---
+    This should print
+    """,
 ]
 
 
