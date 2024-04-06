@@ -1,6 +1,0 @@
-
-void main() {
-    if  true && true  {
-        cout << "This should print";
-    }
-}

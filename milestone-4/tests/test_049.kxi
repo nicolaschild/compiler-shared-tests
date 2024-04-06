@@ -1,0 +1,7 @@
+
+void main() {
+    if  false && true  {
+        cout << "This should not print";
+    }
+}
+---

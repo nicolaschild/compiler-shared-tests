@@ -1,0 +1,16 @@
+
+void main() {
+    int x = 0;
+    if  x != 0  {
+        cout << "This should not print";
+    }
+    else {
+        if  x != 0  {
+            cout << "This should not print";
+        }
+        else {
+            cout << "This should print";
+        }
+    }
+}
+---

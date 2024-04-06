@@ -8,7 +8,7 @@ tests = [
         ---
         2
             """,
-            """
+    """
         void main(){
             int c = 2;
             false && (c += 1) > 2;// false and true
@@ -17,7 +17,7 @@ tests = [
         ---
         2
             """,
-            """
+    """
         void main(){
             int c = 2;
             true && false || (c += 1) > 2;// false and true
@@ -26,7 +26,7 @@ tests = [
         ---
         3
             """,
-            """
+    """
         void main(){
             int c = 2;
             false && (c += 2) > 2;// false and true
@@ -35,7 +35,7 @@ tests = [
         ---
         2
             """,
-            """
+    """
         void main(){
             int c = 2;
             true && (c += 2) > 2;// true and false
@@ -44,7 +44,7 @@ tests = [
         ---
         4
         """,
-        """
+    """
         void main(){
             int n = 3;
             int t = 3;
@@ -55,7 +55,7 @@ tests = [
         ---
         45
         """,
-        """
+    """
         void main(){
             int n = 3;
             int t = 3;
@@ -66,7 +66,7 @@ tests = [
         ---
         43
         """,
-        """
+    """
         void main(){
             int n = 1;
             switch(n){
@@ -85,7 +85,7 @@ tests = [
         ---
         one
         """,
-        """
+    """
         void main(){
             int n = 2;
             switch(n){
@@ -104,7 +104,7 @@ tests = [
         ---
         two or three
         """,
-        """
+    """
         void main(){
             int n = 0;
             switch(n){
@@ -123,7 +123,7 @@ tests = [
         ---
         a number not in the range of 1 to 3
         """,
-        """
+    """
         void main(){
             int n = 2;
             switch(n){
@@ -152,20 +152,20 @@ tests = [
         ---
         two
             """,
-            """
+    """
         void main(){
         if(false){cout << "upper";} else {cout << "lower";}}
         ---
         lower
             """,
-            """
+    """
         void main(){
         bool x = 1 < 5 || false;
         if(x){cout << "upper";} else {cout << "lower";}}
         ---
         upper
             """
-                """
+    """
         void main(){
         int x = 10;
         while(x > 0){
@@ -176,7 +176,7 @@ tests = [
         ---
         10987654321
             """,
-            """
+    """
         void main(){
         int x = 10;
         while(x > 0){
@@ -188,12 +188,13 @@ tests = [
         ---
         10987654321
         """,
-"""
+    """
     void main() {
     cout << "Hello World!";
 }
+---
 """,
-"""
+    """
     void main(){
     int n = 1;
     switch n {
@@ -209,16 +210,18 @@ tests = [
             break;
         }
 }
-"""
+---
 """,
+    """
 void main() {
     int x = 0;
     if  1 < x  {
             cout << "This should not print";
     }   
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 0;
     if  x < 1  {
@@ -228,8 +231,9 @@ void main() {
             cout << "This should not print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 0;
     if  x > 1  {
@@ -239,8 +243,9 @@ void main() {
             cout << "This should print";
     }   
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 0;
     if  1 > x  {
@@ -250,8 +255,9 @@ void main() {
             cout << "This should not print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 0;
     if  x == 0  {
@@ -261,8 +267,9 @@ void main() {
         cout << "This should not print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 1;
     if  0 == x  {
@@ -272,8 +279,9 @@ void main() {
         cout << "This should print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 0;
     if  x != 1  {
@@ -283,8 +291,9 @@ void main() {
         cout << "This should not print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 1;
     if  1 != x  {
@@ -294,8 +303,9 @@ void main() {
         cout << "This should print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 0;
     if  x == 0  {
@@ -304,8 +314,9 @@ void main() {
         }
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 0;
     if  x == 0  {
@@ -316,8 +327,9 @@ void main() {
         }
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 0;
     if  x != 0  {
@@ -329,8 +341,9 @@ void main() {
         }
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 0;
     if  x != 0  {
@@ -345,24 +358,27 @@ void main() {
         }
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int i = 0;
     for  i = 0; i < 5; i = i + 1  {
         cout << i;
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int i = 0;
     for  ; i < 5; i = i + 1  {
         cout << i;
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int i = 0;
     for  ; i < 5;  {
@@ -370,8 +386,9 @@ void main() {
         i = i + 1;
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int i = 0;
     for  ; i < 5;  {
@@ -382,8 +399,9 @@ void main() {
         }
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int i = 0;
     for  ; i < 3; i = i + 1  {
@@ -394,8 +412,9 @@ void main() {
         }
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int i = 0;
     for  ; i < 3; i = i + 1  {
@@ -409,8 +428,9 @@ void main() {
         }
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int i = 0;
     while  i < 5  {
@@ -418,8 +438,9 @@ void main() {
         i = i + 1;
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int i = 0;
     while  i < 3  {
@@ -432,8 +453,9 @@ void main() {
         i = i + 1;
     }
 }
+---
 """,
-"""
+    """
 void main() {
     int i = 0;
     while  i < 3  {
@@ -449,16 +471,18 @@ void main() {
         i = i + 1;
     }
 }
+---
 """,
-"""
+    """
     void main() {
     int x = 1;
     int y = 2;
     int z = x + y;
     cout << z;
     }
-""", 
-"""
+---
+""",
+    """
 void main() {
     int x = 1;
     int y = 2;
@@ -473,112 +497,131 @@ void main() {
     }
 }
 """,
-"""
+    """
 void main() {
     int x += 1 - 3 * 2 / 2 + 1;
     cout << x + 12; 
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 1;
     int y = 2;
     int z = 3;
     cout << x + y * z;
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 1;
     x -= 1;
     cout << x;
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 1;
     x += 1;
     cout << x;
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 2;
     x /= 2;
     cout << x;
 }
+---
 """,
-"""
+    """
 void main() {
     int x = 2;
     x *= 2;
     cout << x;
 }
+---
 """,
-"""
+    """
 void main() {
     if  !false  {
         cout << "This should print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     if  !!true  {
         cout << "This should print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     if  true && true  {
         cout << "This should print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     if  false && true  {
         cout << "This should not print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     if  true || false  {
         cout << "This should print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     if  false || false  {
         cout << "This should not print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     if  true && true || false  {
         cout << "This should print";
     }
 }
+---
 """,
-"""
+    """
 void main() {
     if  true && false || false  {
         cout << "This should not print";
     }
 }
-"""]
+---
+""",
+]
 
 
 def main() -> None:
     counter = 0
     for test in tests:
         counter += 1
-        with open(f'./tests/test_{counter}.kxi', 'w') as file:
+        counter_str = str(counter)
+        # Pad to 3 digits (0's in the beginning)
+        counter_str = counter_str.zfill(3)
+        with open(f"./tests/test_{counter_str}.kxi", "w") as file:
             file.write(test)
+
 
 if __name__ == "__main__":
     main()
