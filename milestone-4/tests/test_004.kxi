@@ -1,9 +1,0 @@
-
-        void main(){
-            int c = 2;
-            false && (c += 2) > 2;// false and true
-            cout << c;
-            }
-        ---
-        2
-            

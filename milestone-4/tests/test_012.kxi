@@ -1,6 +1,0 @@
-
-        void main(){
-        if(false){cout << "upper";} else {cout << "lower";}}
-        ---
-        lower
-            

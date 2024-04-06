@@ -1,8 +1,0 @@
-
-void main() {
-    int x = 0;
-    if  1 < x  {
-            cout << "This should not print";
-    }   
-}
----

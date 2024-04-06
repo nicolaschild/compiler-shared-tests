@@ -56,15 +56,15 @@ tests = [
         45
         """,
     """
-        void main(){
-            int n = 3;
-            int t = 3;
-            (n += 1) == 4 || (t += 2) > 2;
-            cout << n;
-            cout << t;
-            }
-        ---
-        43
+    void main(){
+        int n = 3;
+        int t = 3;
+        (n += 1) == 4 || (t += 2) > 2;
+        cout << n;
+        cout << t;
+        }
+    ---
+    43
         """,
     """
         void main(){
@@ -496,6 +496,7 @@ void main() {
         }
     }
 }
+---
 """,
     """
 void main() {
