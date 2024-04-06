@@ -164,7 +164,7 @@ tests = [
         if(x){cout << "upper";} else {cout << "lower";}}
         ---
         upper
-            """
+            """,
     """
         void main(){
         int x = 10;
