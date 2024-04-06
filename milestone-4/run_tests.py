@@ -29,10 +29,11 @@ def run_parser(test: tuple[str, str, str]) -> tuple[str, str, int]:
     """Save the input string to a file and run the parser"""
     result = subprocess.run(
         [
+            test[0],
+            "|",
             "python3",
             PATH_TO_RUN_SH,
             "-e",
-            f"-o ./build/{test[0]}",
         
         ],
         text=True,
