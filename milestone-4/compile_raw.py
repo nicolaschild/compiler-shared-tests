@@ -472,7 +472,7 @@ void main() {
     }
 }
 ---
-""",
+""",# TODO: add expected
     """
     void main() {
     int x = 1;
@@ -481,6 +481,7 @@ void main() {
     cout << z;
     }
 ---
+3
 """,
     """
 void main() {
@@ -497,13 +498,15 @@ void main() {
     }
 }
 ---
+4
 """,
     """
 void main() {
-    int x += 1 - 3 * 2 / 2 + 1;
+    int x = 1 - 3 * 2 / 2 + 1;
     cout << x + 12; 
 }
 ---
+11
 """,
     """
 void main() {
@@ -513,6 +516,7 @@ void main() {
     cout << x + y * z;
 }
 ---
+7
 """,
     """
 void main() {
@@ -521,6 +525,7 @@ void main() {
     cout << x;
 }
 ---
+0
 """,
     """
 void main() {
@@ -529,6 +534,7 @@ void main() {
     cout << x;
 }
 ---
+2
 """,
     """
 void main() {
@@ -537,6 +543,7 @@ void main() {
     cout << x;
 }
 ---
+1
 """,
     """
 void main() {
@@ -545,6 +552,7 @@ void main() {
     cout << x;
 }
 ---
+4
 """,
     """
 void main() {
@@ -553,6 +561,7 @@ void main() {
     }
 }
 ---
+This should print
 """,
     """
 void main() {
@@ -561,6 +570,7 @@ void main() {
     }
 }
 ---
+This should print
 """,
     """
 void main() {
@@ -569,6 +579,7 @@ void main() {
     }
 }
 ---
+This should print
 """,
     """
 void main() {
@@ -585,6 +596,7 @@ void main() {
     }
 }
 ---
+This should print
 """,
     """
 void main() {
@@ -601,6 +613,7 @@ void main() {
     }
 }
 ---
+This should print
 """,
     """
 void main() {
