@@ -1,5 +1,13 @@
 tests = [
     """
+        void main() {//expect to be 11
+            int x = -10;
+            cout << x;
+        }
+        ---
+        -10
+    """,
+    """
         void main(){
             int c = 2;
             c < 2 || (c += 5) < 2;
