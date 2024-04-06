@@ -2,7 +2,7 @@ tests = [
     """
         void main(){
             int c = 2;
-            c < 2 || c += 5 < 2;
+            c < 2 || (c += 5) < 2;
             cout << c;
             }
         ---
@@ -215,7 +215,7 @@ tests = [
     """
 void main() {
     int x = 0;
-    if  1 < x  {
+    if(1 < x){
             cout << "This should not print";
     }   
 }
@@ -224,7 +224,7 @@ void main() {
     """
 void main() {
     int x = 0;
-    if  x < 1  {
+    if(x < 1){
             cout << "This should print";
     }
     else {
@@ -236,7 +236,7 @@ void main() {
     """
 void main() {
     int x = 0;
-    if  x > 1  {
+    if(x > 1){
             cout << "This should not print";
     }
     else {
@@ -248,7 +248,7 @@ void main() {
     """
 void main() {
     int x = 0;
-    if  1 > x  {
+    if(1 > x){
             cout << "This should print";
     }
     else {
@@ -260,7 +260,7 @@ void main() {
     """
 void main() {
     int x = 0;
-    if  x == 0  {
+    if(x == 0){
         cout << "This should print";
     }
     else {
@@ -272,7 +272,7 @@ void main() {
     """
 void main() {
     int x = 1;
-    if  0 == x  {
+    if(0 == x){
         cout << "This should not print";
     }
     else {
@@ -284,7 +284,7 @@ void main() {
     """
 void main() {
     int x = 0;
-    if  x != 1  {
+    if(x != 1){
         cout << "This should print";
     }
     else {
@@ -296,7 +296,7 @@ void main() {
     """
 void main() {
     int x = 1;
-    if  1 != x  {
+    if(1 != x){
         cout << "This should not print";
     }
     else {
@@ -308,8 +308,8 @@ void main() {
     """
 void main() {
     int x = 0;
-    if  x == 0  {
-        if  x == 0  {
+    if(x == 0){
+        if(x == 0){
             cout << "This should print";
         }
     }
@@ -319,9 +319,9 @@ void main() {
     """
 void main() {
     int x = 0;
-    if  x == 0  {
-        if  x == 0  {
-            if  x == 0  {
+    if(x == 0){
+        if(x == 0){
+            if(x == 0){
                 cout << "This should print";
             }
         }
@@ -332,11 +332,11 @@ void main() {
     """
 void main() {
     int x = 0;
-    if  x != 0  {
+    if(x != 0){
         cout << "This should not print";
     }
     else {
-        if  x == 0  {
+        if(x == 0){
             cout << "This should print";
         }
     }
@@ -346,11 +346,11 @@ void main() {
     """
 void main() {
     int x = 0;
-    if  x != 0  {
+    if(x != 0){
         cout << "This should not print";
     }
     else {
-        if  x != 0  {
+        if(x != 0){
             cout << "This should not print";
         }
         else {
@@ -363,7 +363,7 @@ void main() {
     """
 void main() {
     int i = 0;
-    for  i = 0; i < 5; i = i + 1  {
+    for(i = 0; i < 5; i = i + 1){
         cout << i;
     }
 }
@@ -372,7 +372,7 @@ void main() {
     """
 void main() {
     int i = 0;
-    for  ; i < 5; i = i + 1  {
+    for(; i < 5; i = i + 1){
         cout << i;
     }
 }
@@ -381,7 +381,7 @@ void main() {
     """
 void main() {
     int i = 0;
-    for  ; i < 5;  {
+    for(; i < 5;){
         cout << i;
         i = i + 1;
     }
@@ -391,10 +391,10 @@ void main() {
     """
 void main() {
     int i = 0;
-    for  ; i < 5;  {
+    for(; i < 5;){
         cout << i;
         i = i + 1;
-        if  i == 3  {
+        if(i == 3){
             break;
         }
     }
@@ -404,9 +404,9 @@ void main() {
     """
 void main() {
     int i = 0;
-    for  ; i < 3; i = i + 1  {
+    for(; i < 3; i = i + 1){
         int j = 0;
-        for  ; j < 3; j = j + 1  {
+        for(; j < 3; j = j + 1){
             cout << i;
             cout << j;
         }
@@ -417,12 +417,12 @@ void main() {
     """
 void main() {
     int i = 0;
-    for  ; i < 3; i = i + 1  {
+    for(; i < 3; i = i + 1){
         int j = 0;
-        for  ; j < 3; j = j + 1  {
+        for(; j < 3; j = j + 1){
             cout << i;
             cout << j;
-            if  j == 1  {
+            if(j == 1){
                 break;
             }
         }
@@ -464,7 +464,7 @@ void main() {
             cout << i;
             cout << j;
             j = j + 1;
-            if  j == 1  {
+            if(j == 1){
                 break;
             }
         }
@@ -548,7 +548,7 @@ void main() {
 """,
     """
 void main() {
-    if  !false  {
+    if(!false){
         cout << "This should print";
     }
 }
@@ -556,7 +556,7 @@ void main() {
 """,
     """
 void main() {
-    if  !!true  {
+    if(!!true){
         cout << "This should print";
     }
 }
@@ -564,7 +564,7 @@ void main() {
 """,
     """
 void main() {
-    if  true && true  {
+    if(true && true){
         cout << "This should print";
     }
 }
@@ -572,7 +572,7 @@ void main() {
 """,
     """
 void main() {
-    if  false && true  {
+    if(false && true){
         cout << "This should not print";
     }
 }
@@ -580,7 +580,7 @@ void main() {
 """,
     """
 void main() {
-    if  true || false  {
+    if(true || false){
         cout << "This should print";
     }
 }
@@ -588,7 +588,7 @@ void main() {
 """,
     """
 void main() {
-    if  false || false  {
+    if(false || false){
         cout << "This should not print";
     }
 }
@@ -596,7 +596,7 @@ void main() {
 """,
     """
 void main() {
-    if  true && true || false  {
+    if(true && true || false){
         cout << "This should print";
     }
 }
@@ -604,7 +604,7 @@ void main() {
 """,
     """
 void main() {
-    if  true && false || false  {
+    if(true && false || false){
         cout << "This should not print";
     }
 }
