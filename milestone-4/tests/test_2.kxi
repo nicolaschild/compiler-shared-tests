@@ -1,23 +1,9 @@
 
-    void main(){
-    int n = 1;
-    switch n {
-        case 1:
-            cout << "one";
-            break;
-        case 2:
-        case 3:
-            cout << "two or three";
-            break;
-        default:
-            cout << "a number not in the range of 1 to 3";
-            break;
-        }
-}
-,
-void main() {
-    int x = 0;
-    if  1 < x  {
-            cout << "This should not print";
-    }   
-}
+        void main(){
+            int c = 2;
+            false && (c += 1) > 2;// false and true
+            cout << c;
+            }
+        ---
+        2
+            

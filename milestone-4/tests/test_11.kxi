@@ -1,11 +1,29 @@
 
-void main() {
-    int x = 0;
-    if  x == 0  {
-        if  x == 0  {
-            if  x == 0  {
-                cout << "This should print";
+        void main(){
+            int n = 2;
+            switch(n){
+                case 1:
+                    cout << "one";
+                    break;
+                case 2:
+                case 3:
+                    switch (n) {
+                        case 2:
+                            cout << "two";
+                            break;
+                        case 3:
+                            cout << "three";
+                            break;
+                        default:
+                            cout << "something else";
+                            break;
+                    }
+                    break;
+                default:
+                    cout << "outer something else";
+                    break;
+                }
             }
-        }
-    }
-}
+        ---
+        two
+            

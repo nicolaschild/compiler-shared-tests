@@ -1,6 +1,11 @@
 
 void main() {
-    if  !!true  {
-        cout << "This should print";
+    int i = 0;
+    for  ; i < 3; i = i + 1  {
+        int j = 0;
+        for  ; j < 3; j = j + 1  {
+            cout << i;
+            cout << j;
+        }
     }
 }

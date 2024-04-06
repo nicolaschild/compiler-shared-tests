@@ -1,12 +1,6 @@
 
-void main() {
-    int x = 0;
-    if  x != 0  {
-        cout << "This should not print";
-    }
-    else {
-        if  x == 0  {
-            cout << "This should print";
-        }
-    }
-}
+        void main(){
+        if(false){cout << "upper";} else {cout << "lower";}}
+        ---
+        lower
+            

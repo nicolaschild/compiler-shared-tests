@@ -1,7 +1,12 @@
 
-void main() {
-    int i = 0;
-    for  i = 0; i < 5; i = i + 1  {
-        cout << i;
-    }
-}
+        void main(){
+        int x = 10;
+        while(x > 0){
+            cout << x;
+            true || x < (x += 10);
+            x = x - 1;
+        }
+        }
+        ---
+        10987654321
+        

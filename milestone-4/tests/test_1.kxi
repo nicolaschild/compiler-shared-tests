@@ -1,4 +1,9 @@
 
-    void main() {
-    cout << "Hello World!";
-}
+        void main(){
+            int c = 2;
+            c < 2 || c += 5 < 2;
+            cout << c;
+            }
+        ---
+        2
+            

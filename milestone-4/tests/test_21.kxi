@@ -1,13 +1,10 @@
 
 void main() {
-    int i = 0;
-    while  i < 3  {
-        int j = 0;
-        while  j < 3  {
-            cout << i;
-            cout << j;
-            j = j + 1;
-        }
-        i = i + 1;
+    int x = 1;
+    if  0 == x  {
+        cout << "This should not print";
+    }
+    else {
+        cout << "This should print";
     }
 }

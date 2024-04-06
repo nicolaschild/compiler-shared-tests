@@ -1,7 +1,10 @@
 
-    void main() {
+void main() {
     int x = 1;
-    int y = 2;
-    int z = x + y;
-    cout << z;
+    if  1 != x  {
+        cout << "This should not print";
     }
+    else {
+        cout << "This should print";
+    }
+}

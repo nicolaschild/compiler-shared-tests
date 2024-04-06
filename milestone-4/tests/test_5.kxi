@@ -1,10 +1,9 @@
 
-void main() {
-    int x = 0;
-    if  1 > x  {
-            cout << "This should print";
-    }
-    else {
-            cout << "This should not print";
-    }
-}
+        void main(){
+            int c = 2;
+            true && (c += 2) > 2;// true and false
+            cout << c;
+            }
+        ---
+        4
+        

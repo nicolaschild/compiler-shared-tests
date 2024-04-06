@@ -1,14 +1,9 @@
 
 void main() {
-    int x = 1;
-    int y = 2;
-    {
-        int z = x + y;
-        {
-            int a = z + x;
-            {
-                cout << a;
-            }
+    int x = 0;
+    if  x == 0  {
+        if  x == 0  {
+            cout << "This should print";
         }
     }
 }
