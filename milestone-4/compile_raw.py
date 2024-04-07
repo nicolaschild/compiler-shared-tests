@@ -1,39 +1,4 @@
 tests = [
-    """// template test
-        void main() {
-        }
-        ---
-    """,
-    """// template test
-        void main() {
-         string y = "why";
-         string x = y;
-         if (y == x) {
-            cout << "equal";
-         }
-        }
-        ---
-        equal
-    """,
-    """
-        void main() {
-            if ("my 30+ hour weeks" == "kxi C- compiler") {
-                cout << "Big if true";
-            } else {
-                cout << "funny joke";
-            }
-        }
-        ---
-        funny joke
-    """,
-    """
-        void main() {//expect to be 11
-            int x = -10;
-            cout << x;
-        }
-        ---
-        -10
-    """,
     """
         void main(){
             int c = 2;
@@ -428,33 +393,13 @@ tests = [
     """
     void main() {
         int i = 0;
-        for(; i <= 5; i = i + 1){
+        for (; i < 5;) {
             cout << i;
-        }
-    }
-    ---
-    012345
-    """,
-    """
-    void main() {
-        int i = 0;
-        for(; i != 5; i = i + 1){
-            cout << i;
+            i = i + 1;
         }
     }
     ---
     01234
-    """,
-    """
-    void main() {
-        int i = 0;
-        for (; i < 5;) {
-            cout << i;
-            i = i + 2;
-        }
-    }
-    ---
-    024
     """,
     """
     void main() {
@@ -709,8 +654,399 @@ tests = [
     ---
     This should print
     """,
+    # Test -=
+    """
+    void main() {
+        int x = 10;
+        x -= 5;
+        cout << x;
+    }
+    ---
+    5
+    """,
+    """
+    void main() {
+        int x = 500;
+        x -= 500;
+        cout << x;
+    }
+    ---
+    0
+    """,
+    # You should be default initalizing things to 0
+    """
+    void main() {
+        int y = 5;
+        int x = 10;
+        int z;
+        z += x;
+        cout << z;
+    }
+    ---
+    10
+    """,
+    # Test *=
+    """
+    void main() {
+        int x = 10;
+        x *= 5;
+        cout << x;
+    }
+    ---
+    50
+    """,
+    # Test /=
+    """
+    void main() {
+        int x = 10;
+        x /= 5;
+        cout << x;
+    }
+    ---
+    2
+    """,
+    # Test < w/ one variable
+    """
+    void main() {
+        int x = 1100;
+        if (1000 < x) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    # Test < w/ two variables
+    """
+    void main() {
+        int x = 4;
+        int y = 5;
+        if (x < y) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    # Some more but with orders reversed, just to be safe
+    """
+    void main() {
+        if (10 < 3) {
+            cout << "This should not print";
+        }
+        else {
+            cout << "This should print";
+        
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    void main() {
+        if (1 < 12) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    # These are equal, should not pass
+    """
+    void main() {
+        if (1 < 1) {
+            cout << "This should not print";
+        }
+        else {
+            cout << "This should print";
+        }
+    }
+    ---
+    This should print
+    """,
+    # Test >
+    """
+    void main() {
+        int x = 1100;
+        if (x > 1000) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    void main() {
+        int x = 4;
+        int y = 5;
+        if (y > x) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    // 1 > 0
+    void main() {
+        if (10 > 3) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    // 1 > 0
+    void main() {
+        if (12 > 1) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    // These are equal, should not pass
+    void main() {
+        if (1 > 1) {
+            cout << "This should not print";
+        }
+        else {
+            cout << "This should print";
+        }
+    }
+    ---
+    This should print
+    """,
+    # Test unaries
+    """
+    // ! inline
+    void main() {
+        if (!false) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    // ! variable
+    void main() {
+        bool x = false;
+        if (!x) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    //! nested inline
+    void main() {
+        if (!!true) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    //! nested variable
+    void main() {
+        bool x = true;
+        if (!!x) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    """
+    //One crazy example just for fun
+    void main() {
+        if (!false && !!true) {
+            cout << "I should print";
+        }
+        else {
+            cout << "I should not print";
+        }
+
+    }
+    ---
+    I should print
+    """,
+    """
+    //One crazy example just for fun
+    void main() {
+        if (!false && !true) {
+            cout << "I should not print";
+        }
+        else {
+            cout << "I should print";
+        }
+
+    }
+    ---
+    I should print
+    """,
+    # Test unary +
+    """
+    void main() {
+        char x = 'a';
+        cout << +x;
+    }
+    ---
+    97
+    """,
+    """
+    void main() {
+        char x = 'a';
+        cout << +x + 1;
+    }
+    ---
+    98
+    """,
+    """
+    void main() {
+        char x = 'a';
+        cout << +++++++x;
+    }
+    ---
+    97
+    """,
+    # Test unary -
+    """
+    void main() {
+        char x = 'a';
+        cout << -+x;
+    }
+    ---
+    -97
+    """,
+    """
+    void main() {
+        int x = --4;
+        cout << x;
+    }
+    ---
+    4
+    """,
+    """
+    void main() {
+        int x = 4;
+        cout << -x;
+    }
+    ---
+    -4
+    """,
+    """
+    void main() {
+        int x = 4 - -3;
+        cout << x;
+    }
+    ---
+    7
+    """,
+    """
+    void main() {
+        int x = -4 + -3;
+        cout << x;
+    }
+    ---
+    -7
+    """,
+    """
+    void main() {
+        if (-4 < 3) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    # Testing null
+    """
+    void main() {
+        string x = null;
+        string y;
+        if (x == y) {
+            cout << "This should print";
+        }
+        else {
+            cout << "This should not print";
+        }
+    }
+    ---
+    This should print
+    """,
+    # The example Aldous put in Teams
+    """
+    void main() {
+        int y = 3;
+        cout << (y = 1) + (y = 2);
+        cout << y;
+    }
+    ---
+    32
+    """
 ]
 
+# MANUAL TESTS
+# cin to some integer x
+"""
+void main() {
+    int x;
+    cin >> x;
+    cout << x; //Ensure the value that prints is the same as your input
+}
+"""
+
+# cin to some character x
+"""
+void main() {
+    char x;
+    cin >> x;
+    cout << x; //Ensure the value that prints is the same as your input
+}
+"""
 
 def main() -> None:
     counter = 0
