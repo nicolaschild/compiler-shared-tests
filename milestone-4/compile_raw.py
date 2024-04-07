@@ -1,4 +1,31 @@
 tests = [
+    """// template test
+        void main() {
+        }
+        ---
+    """,
+    """// template test
+        void main() {
+         string y = "why";
+         string x = y;
+         if (y == x) {
+            cout << "equal";
+         }
+        }
+        ---
+        equal
+    """,
+    """
+        void main() {
+            if ("my 30+ hour weeks" == "kxi C- compiler") {
+                cout << "Big if true";
+            } else {
+                cout << "funny joke";
+            }
+        }
+        ---
+        funny joke
+    """,
     """
         void main() {//expect to be 11
             int x = -10;
@@ -659,7 +686,7 @@ tests = [
         }
     }
     ---
-    "This should print"
+    This should print
     """,
     """
     void main() {
@@ -694,6 +721,7 @@ def main() -> None:
         counter_str = counter_str.zfill(3)
         with open(f"./tests/test_{counter_str}.kxi", "w") as file:
             file.write(test)
+    print("total tests = ", counter)
 
 
 if __name__ == "__main__":
