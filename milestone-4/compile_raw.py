@@ -1002,8 +1002,8 @@ tests = [
     ---
     This should print
     """,
-    # Testing null
     """
+    //Testing null
     void main() {
         string x = null;
         string y;
@@ -1019,6 +1019,7 @@ tests = [
     """,
     # The example Aldous put in Teams
     """
+    //Aldous put this example in teams
     void main() {
         int y = 3;
         cout << (y = 1) + (y = 2);
@@ -1026,9 +1027,96 @@ tests = [
     }
     ---
     32
+    """,
+    """
+    class Cheese {
+        static public int x = 3;
+        static public void count() {
+            cout << x;
+            x = Cheese.x -1;
+            if (Cheese.x != 0) {
+                count();
+            }
+        }
+    }
+    void main() {
+        Cheese.count();
+    }
+    ---
+    321
+    """,
+    # Test static member functions returning data members
+    """
+    class Cheese {
+        static public char y = 'a';
+        static public char aye() {
+            return y;
+        }
+    }
+    void main() {
+        cout << Cheese.aye();
+    }
+    ---
+    a
+    """,
+    """
+    class Beez {
+        static public int x = 4;
+    }
+    class Cheese {
+        static public int y = 3;
+    }
+    void main() {
+        cout << Beez.x + Cheese.y;
+    }
+    ---
+    7
+    """,
+    """
+    //First 10 fibonacci numbers
+    class Leonardo {
+        public static Fib(int n) {
+            if (n <= 1) {
+                return n;
+            }
+            return Fib(n - 1) + Fib(n - 2);
+        }
+    }
+    void main() {
+        cout << Leonardo.Fib(10);
+    }
+    ---
+    55
+    """,
+    """
+    //Test static member variables
+    class Cheese {
+        static public int y = 4;
+        static public int x = Cheese.y + 1;
+        static public int z = x + y;
+    }
+    void main() {
+        cout << Cheese.z;
+    }
+    ---
+    9
+    """,
+    """
+    //Test member qualification
+    class Cheese {
+        static public int x = 90;
+        static public cheesey() {
+            int x = 4;
+            return x;
+        }
+    }
+    void main() {
+        cout << Cheese.cheesey();
+    }
+    ---
+    4
     """
 ]
-
 # MANUAL TESTS
 # cin to some integer x
 """
