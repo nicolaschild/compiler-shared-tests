@@ -1075,7 +1075,7 @@ tests = [
     """
     //First 10 fibonacci numbers
     class Leonardo {
-        public static Fib(int n) {
+        static public int Fib(int n) {
             if (n <= 1) {
                 return n;
             }
@@ -1105,7 +1105,7 @@ tests = [
     //Test member qualification
     class Cheese {
         static public int x = 90;
-        static public cheesey() {
+        static public int cheesey() {
             int x = 4;
             return x;
         }
