@@ -1,5 +1,21 @@
 tests = [
     """
+    class Beeze {
+    static public void fun(){
+        int x;
+        cout << x;
+        x = 14;// set x location on the stack
+        }
+    }
+
+    void main() {
+        Beeze.fun();
+        Beeze.fun();
+    }
+    ---
+    00
+    """,
+    """
     class Cheese {
         static public void print(int x, int y) {
             cout << x;
