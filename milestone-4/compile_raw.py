@@ -1,5 +1,19 @@
 tests = [
     """
+    class Cheese {
+        static public void print(int x, int y) {
+            cout << x;
+            cout << y;
+        }
+    }
+
+    void main() {
+        Cheese.print(3, 4);
+    }
+    ---
+    34
+    """,
+    """
         void main(){
             int c = 2;
             c < 2 || (c += 5) < 2;
