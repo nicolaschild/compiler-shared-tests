@@ -1230,6 +1230,24 @@ def test_invalid_types(input_string: str) -> None:
     }
 
     void main() {}
+    """,
+    """
+    void main(){
+        int n = 1;
+        switch(n){
+            case 1:
+                cout << "one";
+                break;
+            case 2:
+            case 3:
+                cout << "two or three";
+                break;
+            default:
+                cout << "a number not in the range of 1 to 3";
+                cout << 1 + 2;
+                break;
+            }
+    }
     """
 ])
 def test_valid_types(input_string: str) -> None:
@@ -1320,6 +1338,32 @@ def test_valid_types(input_string: str) -> None:
         static public int x = b.z;
     }
     void main() {}
+    """,
+    """
+    class Leonardo {
+        static public int Fib(int n, int y) {
+            if (n <= 1 && y < 12) {
+                n;
+            }
+            return Fib(n - 1, 1) + Fib(n - 2, 1);
+        }
+    }
+    void main() {
+        cout << Leonardo.Fib(10, 4);
+    }
+    """,
+    """
+    class Leonardo {
+        static public int Fib(int n) {
+            if (n <= 1) {
+                return n;
+            }
+            return Fib(n - 1) + Fib(n - 2);
+        }
+    }
+    void main() {
+        cout << Leonardo.Fib(10);
+    }
     """
     ])
 def test_valid_static(input_string: str) -> None:
