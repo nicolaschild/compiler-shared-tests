@@ -1,5 +1,24 @@
 tests = [
     """
+    void main() {
+    cout << "\\\"    im spaced out    \\\"";
+    }
+    ---
+    "    im spaced out    "
+    """,
+    """
+    class Cheddar {
+        static public int y = 1;
+        static public int x = x + y + 1;
+    }
+    void main() {
+        cout << Cheddar.y;
+        cout << Cheddar.x;
+    }
+    ---
+    12
+    """,
+    """
     class Beeze {
     static public void fun(){
         int x;
@@ -1145,7 +1164,7 @@ tests = [
     }
     ---
     4
-    """
+    """,
 ]
 # MANUAL TESTS
 # cin to some integer x
@@ -1165,6 +1184,7 @@ void main() {
     cout << x; //Ensure the value that prints is the same as your input
 }
 """
+
 
 def main() -> None:
     counter = 0
