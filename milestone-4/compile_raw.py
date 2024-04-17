@@ -1165,6 +1165,114 @@ tests = [
     ---
     4
     """,
+        ## Wyatt Additions
+    """
+    // Returning Classes and Accessing Members
+    class Yeet {
+        static public Yoink getHim(){
+            return Yoink;
+        }
+    }
+    class Yoink{
+        static public char me= 'z';
+    }
+    
+    void main() {
+        cout<< Yeet.getHim().me;
+    }
+    ---
+    z
+    """,
+    """
+    // Dangling Else WHO
+    void main() {
+        if(true)
+        if(false){}
+            else{
+            cout << "hey";
+            }
+    }
+    ---
+    hey
+    """,
+        """
+    // Else Statement With Block
+    void main() {
+        bool test = true;
+        int y = 1;
+
+        if(!test){
+        cout<<"Fail";
+        }
+        else{
+            y =5;
+        }
+        cout<< y;
+    }
+    ---
+    5
+    """,
+    """
+    //We are Loving Scopes
+    void main() {
+        int y = 1;
+        if( y < 5){
+            bool y = false;
+            {
+                int y = 5;
+                {
+                    char y = 'a';
+                    {
+                        string y = "Ayo";
+                        cout<< y;
+                    }
+                    cout<< y;
+                }
+                cout<< y;
+            }
+             if(y)
+                cout<<"Yoink";  
+            else
+                cout<<"Yeet";
+        }
+         cout<< y;
+    }
+    ---
+    Ayoa5Yeet1
+    """,
+    """
+    // Nested Reference to Class Function outside of Class Scope
+       class B{
+
+        static public int gimmeInt(){
+            return 15;
+        }
+        static public void eatingInt(int x){
+            cout<< x;
+        }
+    }
+    
+    void main() {
+        B.eatingInt(B.gimmeInt());
+    }
+    ---
+    15
+    """,
+        """
+        // For Loop nested in While Loop
+    void main() {
+        int x = 10;
+        while(x > 0){
+            cout<<"Ready";
+            for(;x > 0;x -=1){
+                cout<<x;
+            }
+            cout<< "Stop";
+        }
+        }
+    ---
+    Ready10987654321Stop
+    """
 ]
 # MANUAL TESTS
 # cin to some integer x
