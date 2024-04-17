@@ -1272,6 +1272,32 @@ tests = [
         }
     ---
     Ready10987654321Stop
+    """,
+        """
+        // Make sure that you can call main within main, Aldous said in teams
+    class B{
+        static public int counter= 5;
+    }
+
+    void main(){
+        if(B.counter > 0){
+            B.counter -=1;
+            cout<< B.counter;
+                main();
+        }
+        cout<<"End";
+    }
+    ---
+43210End
+    """,
+    """"
+    // Make sure you can shadow main
+    void main(){
+        int main = 5;
+        cout<<main;
+    }
+    ---
+5
     """
 ]
 # MANUAL TESTS
