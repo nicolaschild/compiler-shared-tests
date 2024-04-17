@@ -1274,30 +1274,45 @@ tests = [
     Ready10987654321Stop
     """,
         """
-        // Make sure that you can call main within main, Aldous said in teams
+        // Make sure that you can call main within main
     class B{
         static public int counter= 5;
     }
 
     void main(){
+        int c = 5;
         if(B.counter > 0){
             B.counter -=1;
             cout<< B.counter;
                 main();
         }
+        cout<< c;
         cout<<"End";
     }
     ---
-43210End
-    """,
-    """"
-    // Make sure you can shadow main
+    432105End
+    """    ,
+        """
+        // Testing Recursion but with two Parameters incase your code works for just one
+    class  B {
+    static public int doubleRecursion(int y, int r){
+
+        if(y < 1 || r < 1){
+            return y;
+        }
+        else{
+            cout<< y;
+            cout<< r;
+            doubleRecursion(y-1, r-1);
+        }
+    }
+}
+    
     void main(){
-        int main = 5;
-        cout<<main;
+        B.doubleRecursion(8,9);
     }
     ---
-5
+8978675645342312
     """
 ]
 # MANUAL TESTS
