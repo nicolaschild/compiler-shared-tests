@@ -1274,7 +1274,7 @@ tests = [
     Ready10987654321Stop
     """,
         """
-        // Make sure that you can call main within main
+    // Make sure that you can call main within main
     class B{
         static public int counter= 5;
     }
@@ -1293,7 +1293,7 @@ tests = [
     432105End
     """    ,
         """
-        // Testing Recursion but with two Parameters incase your code works for just one
+    // Testing Recursion but with two Parameters in case your code works for just one
     class  B {
     static public int doubleRecursion(int y, int r){
 
@@ -1313,6 +1313,30 @@ tests = [
     }
     ---
 8978675645342312
+    """,
+
+            """
+    // Testing Recursion when using local variables as well as params;
+    class  B {
+        static public int doubleRecursion(int y, int r){
+            int c;
+            c = 1;
+            if(y < 1 || r < 1){
+                return y;
+            }
+            else{
+                cout<< y;
+                cout<< r;
+                doubleRecursion(y-c, r-c);
+            }
+        }
+    }
+        
+    void main(){
+        B.doubleRecursion(8,9);
+    }
+    ---
+    8978675645342312
     """
 ]
 # MANUAL TESTS
