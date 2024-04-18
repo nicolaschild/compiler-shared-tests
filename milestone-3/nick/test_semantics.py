@@ -1419,6 +1419,21 @@ def test_valid_static(input_string: str) -> None:
         static public int y = this.x;
     }
     void main() {}
+    """,
+    # You cannot return a static reference of a class
+    """
+    class Yeet {
+        static public Yoink getHim(){
+            return Yoink;
+        }
+    }
+    class Yoink{
+        static public char me = 'z';
+    }
+        
+    void main() {
+        cout<< Yeet.getHim().me;
+    }
     """
     ])
 def test_invalid_static(input_string: str) -> None:
