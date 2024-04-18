@@ -1403,7 +1403,7 @@ def test_valid_static(input_string: str) -> None:
         MyClass.b;
     }
     """,
-    # This is not allowed
+    # The instance does not exist yet, so using `this` in a static context for data member declarations is not allowed
     """
     class Cheese {
         static public int x = 4;
