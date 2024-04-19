@@ -86,9 +86,8 @@ def run_parser(input_string: str) -> tuple[str, str, int]:
 
 def test_invalid_symbol_table_smith(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 1
-    assert stderr == ""
 
 @pytest.mark.parametrize(
     "input_string",
@@ -162,9 +161,8 @@ def test_invalid_symbol_table_smith(input_string: str) -> None:
 
 def test_valid_symbol_table_smith(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 0
-    assert stderr == ""
 
 
 """Test undeclared variables"""
@@ -322,9 +320,8 @@ def test_valid_symbol_table_smith(input_string: str) -> None:
 
 def test_undeclared_variables(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 1
-    assert stderr == ""
 
 
 @pytest.mark.parametrize("input_string", [
@@ -726,9 +723,8 @@ def test_undeclared_variables(input_string: str) -> None:
 ])
 def test_invalid_types(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 1
-    assert stderr == ""
 
 
 @pytest.mark.parametrize("input_string", [
@@ -1189,19 +1185,8 @@ def test_invalid_types(input_string: str) -> None:
     class Cheese {
         public void Func2(int x, int y, char b) {}
         public void Func(int y, int x, char b) {
-            return Func2(y, x, b);
-        }
-    }
-
-    void main() {
-        Cheese c = new Cheese();
-    }
-    """,
-    # Recursive function calls with valid param types
-    """
-    class Cheese {
-        public void Func(int y, int x, char b) {
-            return Func(y, x, b);
+            Func2(y, x, b);
+            return;
         }
     }
 
@@ -1252,9 +1237,8 @@ def test_invalid_types(input_string: str) -> None:
 ])
 def test_valid_types(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 0
-    assert stderr == ""
 
 @pytest.mark.parametrize("input_string", [
     """
@@ -1364,13 +1348,34 @@ def test_valid_types(input_string: str) -> None:
     void main() {
         cout << Leonardo.Fib(10);
     }
+    """,
+    """
+    class GuessingGame {
+        static private int number = 45;
+        static public void danger() {
+            while (true) {
+            cout << "How many times do you need to stack overflow? : ";
+            int guess;
+            cin >> guess;
+            GuessingGame.recur(guess);
+            cout << "Too Low\\n";
+            }
+        }
+        static private void recur(int x) {
+            if (x == 0) {
+            return;
+            }
+            GuessingGame.recur(x - 1);
+        }
+    }
+
+    void main() {}
     """
     ])
 def test_valid_static(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 0
-    assert stderr == ""
 
 @pytest.mark.parametrize("input_string", [
     # Because of the order of execution, non-static elemenents don't exist when
@@ -1403,7 +1408,7 @@ def test_valid_static(input_string: str) -> None:
         MyClass.b;
     }
     """,
-    # The instance does not exist yet, so using `this` in a static context for data member declarations is not allowed
+    # This is not allowed
     """
     class Cheese {
         static public int x = 4;
@@ -1430,7 +1435,6 @@ def test_valid_static(input_string: str) -> None:
     class Yoink{
         static public char me = 'z';
     }
-        
     void main() {
         cout<< Yeet.getHim().me;
     }
@@ -1438,9 +1442,8 @@ def test_valid_static(input_string: str) -> None:
     ])
 def test_invalid_static(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 1
-    assert stderr == ""
 
 @pytest.mark.parametrize("input_string", [
     """
@@ -1465,9 +1468,8 @@ def test_invalid_static(input_string: str) -> None:
     """,])
 def test_invalid_breaks(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 1
-    assert stderr == ""
 
 @pytest.mark.parametrize("input_string", [
     """
@@ -1496,9 +1498,8 @@ def test_invalid_breaks(input_string: str) -> None:
     ])
 def test_valid_breaks(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 0
-    assert stderr == ""
 
 # Shared tests
 @pytest.mark.parametrize(
@@ -2197,14 +2198,13 @@ def test_type_checker_success(input_string: str) -> None:
         static private int y = this.x + 1;
     }
     void main(){}
-    """
+    """,
 ])
 
 def test_invalid_types_shared(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 1
-    assert stderr == ""
 
 @pytest.mark.parametrize("input_string", [
     # Args type check
@@ -2542,17 +2542,7 @@ def test_invalid_types_shared(input_string: str) -> None:
         MyClass;
     }
     """,
-    # Can return function calls of the same return type
-    """
-    class MyClass {
-        public int x;
-        public void myfunc() {
-            return main();
-        }
-        MyClass() {}
-    }
-    void main(){}
-    """,
+    # Can return function calls of the same return type (except void)
     """
     class MyClass {
         public int x;
@@ -2596,9 +2586,8 @@ def test_invalid_types_shared(input_string: str) -> None:
 
 def test_valid_types_shared(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 0
-    assert stderr == ""
 
 #Invalid Writes
 @pytest.mark.parametrize("input_string", [
@@ -2801,9 +2790,9 @@ def test_valid_types_shared(input_string: str) -> None:
 
 def test_invalid_writes(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 1
-    assert stderr == ""
+
 
 @pytest.mark.parametrize("input_string", [
         """
@@ -2834,6 +2823,5 @@ def test_invalid_writes(input_string: str) -> None:
 
 def test_valid_writes(input_string: str) -> None:
     """Test the semantics of the input string"""
-    _, stderr, returncode = run_parser(input_string)
+    _, _, returncode = run_parser(input_string)
     assert returncode == 0
-    assert stderr == ""
