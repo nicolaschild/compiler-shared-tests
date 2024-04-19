@@ -1350,7 +1350,18 @@ tests = [
     }
     ---
     125
+    """,
     """
+     //Testing early return from main
+    void main(){
+
+        cout<< "This Prints";
+        return;
+        cout<<"This doesn't print";
+    }
+    ---
+    This Prints
+"""
 ]
 # MANUAL TESTS
 # cin to some integer x
