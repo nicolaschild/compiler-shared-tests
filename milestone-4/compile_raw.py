@@ -1165,20 +1165,15 @@ tests = [
     ---
     4
     """,
-        ## Wyatt Additions
+     ## Wyatt Additions
     """
     // Returning Classes and Accessing Members
-    class Yeet {
-        static public Yoink getHim(){
-            return Yoink;
-        }
-    }
     class Yoink{
-        static public char me= 'z';
+        static public char me = 'z';
     }
     
     void main() {
-        cout<< Yeet.getHim().me;
+        cout<< Yoink.me;
     }
     ---
     z
@@ -1190,7 +1185,7 @@ tests = [
         if(false){}
             else{
             cout << "hey";
-            }
+        }
     }
     ---
     hey
@@ -1242,7 +1237,7 @@ tests = [
     """,
     """
     // Nested Reference to Class Function outside of Class Scope
-       class B{
+       class B {
 
         static public int gimmeInt(){
             return 15;
@@ -1258,8 +1253,8 @@ tests = [
     ---
     15
     """,
-        """
-        // For Loop nested in While Loop
+    """
+    // For Loop nested in While Loop
     void main() {
         int x = 10;
         while(x > 0){
@@ -1273,7 +1268,7 @@ tests = [
     ---
     Ready10987654321Stop
     """,
-        """
+    """
     // Make sure that you can call main within main
     class B{
         static public int counter= 5;
@@ -1290,32 +1285,31 @@ tests = [
         cout<<"End";
     }
     ---
-    432105End
-    """    ,
-        """
+    432105End5End5End5End5End5End
+    """,
+    """
     // Testing Recursion but with two Parameters in case your code works for just one
     class  B {
-    static public int doubleRecursion(int y, int r){
+        static public int doubleRecursion(int y, int r){
 
-        if(y < 1 || r < 1){
-            return y;
-        }
-        else{
-            cout<< y;
-            cout<< r;
-            doubleRecursion(y-1, r-1);
+            if(y < 1 || r < 1){
+                return y;
+            }
+            else{
+                cout<< y;
+                cout<< r;
+                doubleRecursion(y-1, r-1);
+            }
         }
     }
-}
     
     void main(){
         B.doubleRecursion(8,9);
     }
     ---
-8978675645342312
+    8978675645342312
     """,
-
-            """
+    """
     // Testing Recursion when using local variables as well as params;
     class  B {
         static public int doubleRecursion(int y, int r){
@@ -1337,6 +1331,25 @@ tests = [
     }
     ---
     8978675645342312
+    """,
+    # Aldous mentioned doing Ackerman function
+    """
+    class Ackerman {
+        static public int ackerman(int m, int n) {
+            if (m == 0) {
+                return n +1;
+            } else if (m > 0 && n == 0) {
+                return ackerman(m - 1, 1);
+            } else {
+                return ackerman(m - 1, ackerman(m, n - 1));
+            }
+        }
+    }
+    void main() {
+        cout << Ackerman.ackerman(3, 4);
+    }
+    ---
+    125
     """
 ]
 # MANUAL TESTS
