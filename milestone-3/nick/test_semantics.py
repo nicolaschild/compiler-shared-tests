@@ -1923,11 +1923,11 @@ def test_type_checker_fail(input_string: str) -> None:
     }
     """,
     """
-    class Thing {
+    class Foo {
         public int x = 4;
     }
     void main() {
-        Thing[] x = new Thing[1];
+        Foo[] x = new Foo[1];
         x[1].x;
     }
     """,
