@@ -1922,6 +1922,25 @@ def test_type_checker_fail(input_string: str) -> None:
         bool t = !f;
     }
     """,
+    """
+    class Thing {
+        public int x = 4;
+    }
+    void main() {
+        Thing[] x = new Thing[1];
+        x[1].x;
+    }
+    """,
+    """
+    class Sauce {
+        public int x = 4;
+    }
+    void main() {
+        Sauce[][] x = new Sauce[][1];
+        Sauce[] y = x[1];
+        y[1].x = 4;
+    }
+    """
     ],
 )
 def test_type_checker_success(input_string: str) -> None:
