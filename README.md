@@ -1,5 +1,5 @@
 # compiler-tests
 
-Nick was here!
+Nick was here! (and he passed)
 
-Ethan was here!
+Ethan was here! (and he passed with an A)
